@@ -1,4 +1,4 @@
-package co.ceiba.gestion_personas_backend.controller;
+package co.ceiba.gestionpersonas.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PathVariable;

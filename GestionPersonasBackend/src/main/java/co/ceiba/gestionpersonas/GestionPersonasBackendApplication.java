@@ -1,4 +1,4 @@
-package co.ceiba.gestion_personas_backend;
+package co.ceiba.gestionpersonas;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
