@@ -1,5 +1,0 @@
-GET http://localhost:8080/api/health
-###
-GET http://localhost:8080/api/welcome/Mariana
-###
-GET http://localhost:8080/api/welcome/Valeria
