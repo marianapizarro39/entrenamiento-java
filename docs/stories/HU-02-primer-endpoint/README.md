@@ -1,52 +1,55 @@
 # HU-02: Primer endpoint REST
 
 ## Historia
-como usuario del sistema quiero acceder a un endpoint que retorne un mensaje de bienvenida, para verificar que la API está funcionando correctamente. Son 3 puntos.
+COMO usuario del sistema
+QUIERO acceder a un endpoint que retorne un mensaje de bienvenida
+PARA verificar que la API está funcionando correctamente
 
 ## ¿Qué hace?
 
-Permite comprobar que la API está encendida y respondiendo antes de construir el resto del sistema. También sirve como mi primera práctica para entender cómo una petición llega a la aplicación y cómo se responde.
+Permite comprobar que la API está viva con `GET /api/health` y recibir un saludo personalizado con `GET /api/welcome/{nombre}`. Las dos respuestas son JSON con código 200.
 
-## Endpoints
-- GET /api/health -> responde que la API está funcionando perfectamente
-- GET /api/welcome/{nombre} -> responde un saludo con el nombre 
+## Refinamiento
 
-## Refinamiento 
+Qué incluye: los dos endpoints, sus respuestas tipadas con `record` y el archivo `pruebas.http` para probarlos.
 
-Qué incluye: los dos endpoints de arriba, con respuesta en JSON y código 200 (OK).
-
-Qué no incluye: autenticación, base de datos, validar el nombre y tests automáticos. Eso se ve más adelante.
+Qué no incluye: base de datos, validaciones, tests automatizados (entran en el Mes 2) y cualquier endpoint de personas.
 
 Cómo sé que está lista (criterios de aceptación):
-- `GET /api/health` responde 200 con `{ "status": "OK", "message": "API funcionando" }`
-- `GET /api/welcome/{nombre}` responde 200 con un saludo para ese nombre
-- Las dos respuestas son JSON (`Content-Type: application/json`)
-- La entrego por Pull Request con la plantilla, mínimo 3 commits descriptivos y la DoD Nivel 1 marcada
+- `GET /api/health` retorna `{"status": "OK", "message": "API funcionando"}`
+- `GET /api/welcome/{nombre}` retorna un saludo personalizado
+- Las respuestas son JSON con `Content-Type: application/json`
+- El código HTTP es 200 en las respuestas exitosas
+- Se entrega por Pull Request con la plantilla del equipo
+- Hay al menos 3 commits con mensajes descriptivos
+- La DoD Nivel 1 está verificada y marcada en el PR
 
-Qué necesitaba antes: Java 21, Gradle y Spring Boot ya configurados en la HU-01.
+Qué necesitaba antes: el entorno de la HU-01 funcionando y el proyecto arrancando.
 
-Dudas o riesgos: usé un `Map` para devolver la respuesta  porque es lo más rápido para esta historia. Pero no sé si es lo adecuado o si conviene usar un `Record` desde ahora, pensando en las siguientes historias. Con el `record` los campos y tipos quedan definidos en el código. 
+Dudas o riesgos (y qué acordé):
+- ¿Qué texto lleva el saludo? El criterio solo dice "personalizado". Elegí: "Hola, {nombre}. Te damos la bienvenida a la API de gestión de personas."
+- ¿Qué pasa si el nombre trae espacios o tildes? Spring decodifica la URL, así que `Ana%20María` se saluda como "Ana María".
+- ¿Qué pasa con `/api/welcome/` sin nombre? No existe esa ruta y Spring responde 404.
 
 Estimación: 3 puntos.
 
 ## Decisiones que tomé
-- Usé `@RestController` porque Spring convierte la respuesta a JSON solo y no tengo que configurar nada más.
-- Usé `@PathVariable` para el nombre porque es parte de la ruta y la URL queda sencilla.
-- Dejé los dos endpoints en el mismo controlador porque son pocos y están relacionados. Separarlos me pareció innecesario para esta historia.
-- Usé `Map`para la respuesta porque son solo dos campos y no necesitaba crear una clase aparte para esta historia.
+- Usé `record` (`HealthResponse`, `BienvenidaResponse`) en lugar de `Map`: el contrato queda tipado, el orden de las llaves lo fija la declaración y un error de dedo en el nombre de un campo no compila.
+- Separé en dos controllers (`HealthController` y `BienvenidaController`): el health es operativo (¿está viva la API?) y el welcome es funcional. La alternativa era un solo controller con `@RequestMapping("/api")`, pero mezcla dos responsabilidades.
+- Renombré el paquete a `co.ceiba.gestionpersonas`, sin guiones bajos, porque la Google Java Style Guide pide solo minúsculas y dígitos.
+- Dejé el saludo neutro ("Te damos la bienvenida") para no fijar un género.
+- Moví `pruebas.http` dentro de `GestionPersonasBackend/` y usé una variable `@baseUrl` para no repetir la URL.
 
 ## Cómo probarlo
-1. Levantar la API.
-2. Abrir `http://localhost:8080/api/health` y revisar que dé el JSON esperado.
-3. Abrir `http://localhost:8080/api/welcome/Mariana` y revisar que salude con el nombre.
+1. Ejecutar `./gradlew bootRun` dentro de `GestionPersonasBackend/`.
+2. Abrir `pruebas.http` y enviar `GET {{baseUrl}}/api/health`: debe responder 200 con `{"status":"OK","message":"API funcionando"}`.
+3. Enviar `GET {{baseUrl}}/api/welcome/Ana`: debe responder 200 con el saludo.
 
 ## DoD Nivel 1
 - [x] Compila sin errores ni warnings nuevos
-- [x] Criterios de aceptación probados a mano en Postman
-- [x] Código en GitHub, en una rama `feature/HU-02-primer-endpoint`
+- [x] Criterios de aceptación probados a mano (`pruebas.http`)
+- [x] Código en GitHub, en la rama `feature/HU-02-primer-endpoint`
 - [x] Al menos 3 commits con mensajes descriptivos
 - [x] Pull Request abierto con la plantilla del equipo
-- [ ] Pull Request aprobado (pendiente, pedí revisión de nuevo después de estas correcciones)
-- [x] README actualizado (no hay pasos nuevos para ejecutar el proyecto)
-
-
+- [ ] Pull Request aprobado (pendiente de revisión)
+- [x] README actualizado (endpoints y `pruebas.http`)
