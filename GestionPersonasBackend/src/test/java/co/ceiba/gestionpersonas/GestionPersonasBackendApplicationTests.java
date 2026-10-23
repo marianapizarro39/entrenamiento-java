@@ -1,4 +1,4 @@
-package co.ceiba.gestion_personas_backend;
+package co.ceiba.gestionpersonas;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

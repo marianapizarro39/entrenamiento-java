@@ -1,0 +1,7 @@
+@baseUrl = http://localhost:8080
+
+### Health: la API esta viva
+GET {{baseUrl}}/api/health
+
+### Welcome: saludo personalizado
+GET {{baseUrl}}/api/welcome/Ana
