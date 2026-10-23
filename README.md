@@ -55,4 +55,4 @@ Las dependencias van hacia abajo (controller → service → repository) y se in
 |----|--------|----|--------|--------|
 | HU-01 | Configuración del entorno | — | ✅ | 1 |
 | HU-02 | Primer endpoint REST | #23 | 🔄 En revisión | 1 |
-| HU-03 | Estructura base del proyecto | - | 🔄 En revisión | 1 |
+| HU-03 | Estructura base del proyecto | #25 | 🔄 En revisión | 1 |
