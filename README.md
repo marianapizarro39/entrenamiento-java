@@ -29,6 +29,21 @@ En Windows: `gradlew.bat bootRun`. La API queda en `http://localhost:8080`.
 
 Para probarlos: abre `GestionPersonasBackend/pruebas.http` con la extensión REST Client y pulsa **Send Request** sobre cada petición.
 
+## 🧱 Estructura de paquetes
+
+Dentro de `GestionPersonasBackend/src/main/java/co/ceiba/gestionpersonas/`:
+
+| Paquete | Para qué existe |
+|---------|-----------------|
+| `controller` | Recibe las peticiones HTTP y delega al servicio |
+| `service` | Lógica de negocio (interfaces) |
+| `service.impl` | Implementación de los servicios |
+| `repository` | Acceso a datos |
+| `domain` | Clases del negocio, como `Persona` |
+| `dto` | Objetos con los que la API recibe y devuelve datos |
+
+Las dependencias van hacia abajo (controller → service → repository) y se inyectan por constructor.
+
 ## 📃 Documentación
 
 - [Arquitectura del sistema](docs/architecture/index.md)
@@ -40,3 +55,4 @@ Para probarlos: abre `GestionPersonasBackend/pruebas.http` con la extensión RES
 |----|--------|----|--------|--------|
 | HU-01 | Configuración del entorno | — | ✅ | 1 |
 | HU-02 | Primer endpoint REST | #23 | 🔄 En revisión | 1 |
+| HU-03 | Estructura base del proyecto | #25 | 🔄 En revisión | 1 |
