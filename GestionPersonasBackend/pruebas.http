@@ -61,3 +61,24 @@ Content-Type: application/json
   "email": "ana.gomez@correo.com",
   "fechaNacimiento": "1998-05-14"
 }
+
+### Crear persona: sin fecha de nacimiento (400)
+POST {{baseUrl}}/api/personas
+Content-Type: application/json
+
+{
+  "nombre": "Ana",
+  "apellido": "Gómez",
+  "email": "sinfecha@correo.com"
+}
+
+### Crear persona: mismo email con mayusculas (409), enviar despues del caso valido
+POST {{baseUrl}}/api/personas
+Content-Type: application/json
+
+{
+  "nombre": "Ana",
+  "apellido": "Gómez",
+  "email": "Ana.Gomez@Correo.com",
+  "fechaNacimiento": "1998-05-14"
+}
