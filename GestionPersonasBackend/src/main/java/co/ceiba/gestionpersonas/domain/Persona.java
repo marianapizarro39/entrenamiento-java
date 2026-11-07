@@ -20,7 +20,7 @@ public class Persona {
     @Column(nullable = false, unique = true, length = 150)
     private String email;
 
-    @Column(name = "fecha_nacimiento")
+    @Column(name = "fecha_nacimiento", nullable = false)
     private LocalDate fechaNacimiento;
 
     public Persona() {
