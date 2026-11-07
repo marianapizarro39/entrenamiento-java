@@ -8,6 +8,8 @@ import co.ceiba.gestionpersonas.repository.PersonaRepository;
 import co.ceiba.gestionpersonas.service.PersonaService;
 import org.springframework.stereotype.Service;
 
+import java.util.Locale;
+
 @Service
 public class PersonaServiceImpl implements PersonaService {
 
@@ -19,7 +21,7 @@ public class PersonaServiceImpl implements PersonaService {
 
     @Override
     public PersonaResponse crear(PersonaRequest request) {
-        String email = request.email().trim();
+        String email = request.email().trim().toLowerCase(Locale.ROOT);
 
         if (personaRepository.existsByEmail(email)) {
             throw new EmailYaExisteException(email);

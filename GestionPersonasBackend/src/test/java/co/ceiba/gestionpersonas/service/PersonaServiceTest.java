@@ -62,4 +62,17 @@ class PersonaServiceTest {
         assertThrows(EmailYaExisteException.class, () -> personaService.crear(request));
         verify(personaRepository, never()).save(any(Persona.class));
     }
+
+    @Test
+    void crear_conEmailEnMayusculas_loGuardaEnMinusculas() {
+        PersonaRequest request = new PersonaRequest(
+                "Mariana", "Pizarro", " Mariana@Correo.com ", LocalDate.of(2006, 10, 14));
+
+        when(personaRepository.existsByEmail("mariana@correo.com")).thenReturn(false);
+        when(personaRepository.save(any(Persona.class))).thenAnswer(invocacion -> invocacion.getArgument(0));
+
+        PersonaResponse respuesta = personaService.crear(request);
+
+        assertEquals("mariana@correo.com", respuesta.email());
+    }
 }
