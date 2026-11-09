@@ -18,3 +18,7 @@ Código en `GestionPersonasBackend/src/main/java/co/ceiba/gestionpersonas/`.
 - Las dependencias se inyectan por constructor, nunca con `@Autowired` en el campo.
 - El controlador nunca devuelve la entidad `Persona`, solo DTOs.
 - Cada historia agrega a las interfaces solo los métodos que necesita.
+
+## Contrato de la API
+
+Los endpoints, con sus peticiones y respuestas, están en [api.md](api.md).
