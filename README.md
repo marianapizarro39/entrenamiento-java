@@ -56,6 +56,7 @@ Dentro de `GestionPersonasBackend/src/main/java/co/ceiba/gestionpersonas/`:
 | `repository` | Acceso a datos con Spring Data JPA |
 | `domain` | Clases del negocio, como `Persona` |
 | `dto` | Objetos con los que la API recibe y devuelve datos |
+| `exception` | Excepciones propias y el manejador global que las convierte en respuestas HTTP |
 
 Las dependencias van hacia abajo (controller → service → repository) y se inyectan por constructor. El controlador nunca expone la entidad `Persona`, solo DTOs.
 
