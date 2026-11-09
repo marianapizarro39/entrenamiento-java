@@ -1,6 +1,6 @@
 # 🔁 Retrospectivas
 
-## Sprint 1 (22 septiembre - 23 octubre)
+## Sprint 1 (28 septiembre - 16 octubre)
 
 **Historias del sprint:** HU-01 (configuración del entorno), HU-02 (primer endpoint REST) y HU-03 (estructura base del proyecto). También alcancé a avanzar en la HU-04.
 
