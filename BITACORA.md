@@ -35,7 +35,7 @@
 - **Busqué por mi cuenta:** la regla de nombres de paquetes en la Google Java Style Guide; comandos de Git (`git mv`, `git restore`, `git stash`, `git status`); cómo ver archivos y carpetas desde la terminal.
 - **IA:** Seguí preguntándole a la IA cuál era mejor para mi proyecto, `Map` o `record`, y me ayudó a ver que con `record` el contrato queda tipado. También le pregunté cómo quitar los archivos `.log` que se habían subido al repositorio (`hs_err_pid` y `replay_pid`, que genera la JVM cuando se cae). Me explicó que primero había que borrarlos del repositorio y después crear reglas en el `.gitignore`, que es un archivo donde se escriben los nombres de los archivos que Git debe ignorar, para que no se vuelvan a subir. Verifiqué los endpoints en `pruebas.http` después de cambiar a `record` y revisé con Git que los `.log` ya no estuvieran en el repositorio.
 - **Hecho:** recibí la revisión de la HU-02 con cambios solicitados. Corregí records, controllers, paquete, `pruebas.http` y la documentación; terminé la HU-03 y avancé en la HU-04.
-## 📅 Semana 4 (26 octubre - 30 noviembre)
+## 📅 Semana 4 (26 octubre - 30 octubre)
 - **Aprendí:**
   - A guardar personas en PostgreSQL con Spring Data JPA y a crear la tabla con una migración de Flyway, en vez de dejar que Hibernate la cree (`ddl-auto: validate`).
   - A validar los datos de `POST /api/personas` y a devolver 400 cuando los datos no son válidos y 409 cuando el email ya existe, con un `@RestControllerAdvice`.
