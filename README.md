@@ -84,4 +84,4 @@ set -a; source .env; set +a
 ./gradlew bootRun
 ```
 
-El ejemplo usa la base de prueba `gestion_personas_test` y el usuario `usuario_prueba`. El archivo `.env` no se sube al repositorio.
+El ejemplo apunta a la base de prueba `gestion_personas_test` con el usuario `usuario_prueba`. Cambiar `tu_contraseña` por la contraseña de ese usuario en tu PostgreSQL local. El archivo `.env` no se sube al repositorio.
