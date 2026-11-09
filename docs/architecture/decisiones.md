@@ -121,6 +121,12 @@ Aquí dejo las decisiones generales que he tomado en el proyecto de gestión de 
 
 **Por qué:** el servicio es donde está la lógica, y al inyectar por constructor puedo probarlo sin levantar Spring ni la base de datos. Más adelante agrego los casos de error.
 
+## 18. Archivo .env.example sin contraseña
+
+**Decisión:** el `.env.example` que se sube al repositorio lleva `tu_contraseña` y no una contraseña de prueba, aunque la que usaba era de un usuario que solo existe en mi computador. El `.env` con mis datos reales está en el `.gitignore`.
+
+**Por qué:** la DoD Nivel 2 pide que no haya credenciales ni secretos en el código versionado. Prefiero no dejar ninguna contraseña en el repositorio para no depender de que alguien juzgue si es real o no. Quien clone el proyecto crea su propio `.env` copiando el ejemplo y poniendo sus datos.
+
 ## ⏳ Decisiones pendientes
 
 Estas todavía no las he tomado porque no llegan hasta las próximas historias:
