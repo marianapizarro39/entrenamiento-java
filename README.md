@@ -73,3 +73,15 @@ Las dependencias van hacia abajo (controller → service → repository) y se in
 | HU-02 | Primer endpoint REST | #23 | ✅ | 1 |
 | HU-03 | Estructura base del proyecto | #25 | ✅ | 1 |
 | HU-04 | Registro de personas | #29 | ✅ | 2 |
+
+## 🔐 Variables de entorno
+
+Copiar `GestionPersonasBackend/.env.example` a `GestionPersonasBackend/.env` y cargarlo antes de ejecutar:
+
+```bash
+cd GestionPersonasBackend
+set -a; source .env; set +a
+./gradlew bootRun
+```
+
+El ejemplo usa la base de prueba `gestion_personas_test` y el usuario `usuario_prueba`. El archivo `.env` no se sube al repositorio.
