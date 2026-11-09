@@ -7,7 +7,7 @@ Código en `GestionPersonasBackend/src/main/java/co/ceiba/gestionpersonas/`.
 | `controller` | Recibe las peticiones HTTP, valida con `@Valid`, le pasa el trabajo al servicio y devuelve la respuesta | Lógica de negocio, acceso a datos, la entidad `Persona` |
 | `service` | Las interfaces con la lógica de negocio | Nada de HTTP (códigos, `ResponseEntity`) |
 | `service.impl` | La implementación de cada servicio | Consultas directas a la base de datos |
-| `repository` | Guardar y consultar datos con Spring Data JPA | Lógica de negocio |
+| `repository` | Guardar y consultar datos con Spring Data JPA, usando solo el `domain` | Lógica de negocio y llamadas al `service` |
 | `domain` | Las clases del negocio, como la entidad `Persona` | Dependencias de los otros paquetes |
 | `dto` | Los objetos que entran y salen de la API (`PersonaRequest`, `PersonaResponse`, `ErrorResponse`) | Lógica |
 | `exception` | Las excepciones propias y el `GlobalExceptionHandler` que las convierte en respuestas HTTP | Lógica de negocio |
