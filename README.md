@@ -1,6 +1,6 @@
 # 👥 Gestión de personas
 
-API REST en Java 21 y Spring Boot para administrar un registro de personas, con PostgreSQL como BD (la conexión a la base de datos llega en el Mes 2). Este proyecto es de mi etapa productiva en Ceiba Software.
+API REST en Java 21 y Spring Boot para administrar un registro de personas, con PostgreSQL como BD. Este proyecto es de mi etapa productiva en Ceiba Software.
 
 ## 📁 Estructura
 
@@ -11,9 +11,19 @@ API REST en Java 21 y Spring Boot para administrar un registro de personas, con 
 
 ## ▶️ Cómo ejecutarlo
 
-Requisitos: JDK 21 y Git. PostgreSQL se necesitará desde la HU-04.
+Requisitos: JDK 21, Git y PostgreSQL.
 
-1. Crear una base de datos en PostgreSQL y definir las variables de entorno de conexión que usa el `application.yml` (la URL, el usuario y la contraseña). Los datos de conexión no se guardan en el repositorio.
+Los comandos de esta sección son para Git Bash.
+
+1. **Variables de entorno.** Crear una base de datos en PostgreSQL. Copiar `GestionPersonasBackend/.env.example` a `GestionPersonasBackend/.env` y cargarlo antes de ejecutar:
+
+```bash
+cd GestionPersonasBackend
+set -a; source .env; set +a
+```
+
+El ejemplo apunta a la base de prueba `gestion_personas_test` con el usuario `usuario_prueba`. Cambiar `tu_contraseña` por la contraseña de ese usuario en tu PostgreSQL local. El archivo `.env` no se sube al repositorio.
+
 2. Ejecutar:
 
 ```bash
@@ -21,7 +31,7 @@ cd GestionPersonasBackend
 ./gradlew bootRun
 ```
 
-En Windows: `gradlew.bat bootRun`. La API queda en `http://localhost:8080`. Al arrancar, Flyway crea la tabla de personas automáticamente.
+La API queda en `http://localhost:8080`.
 
 ## 🔌 Endpoints disponibles
 
@@ -74,14 +84,3 @@ Las dependencias van hacia abajo (controller → service → repository) y se in
 | HU-03 | Estructura base del proyecto | #25 | ✅ | 1 |
 | HU-04 | Registro de personas | #29 | ✅ | 2 |
 
-## 🔐 Variables de entorno
-
-Copiar `GestionPersonasBackend/.env.example` a `GestionPersonasBackend/.env` y cargarlo antes de ejecutar:
-
-```bash
-cd GestionPersonasBackend
-set -a; source .env; set +a
-./gradlew bootRun
-```
-
-El ejemplo apunta a la base de prueba `gestion_personas_test` con el usuario `usuario_prueba`. Cambiar `tu_contraseña` por la contraseña de ese usuario en tu PostgreSQL local. El archivo `.env` no se sube al repositorio.
