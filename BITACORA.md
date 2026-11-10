@@ -41,10 +41,8 @@
   - A guardar personas en PostgreSQL con Spring Data JPA y a crear la tabla con una migración de Flyway, en vez de dejar que Hibernate la cree (`ddl-auto: validate`).
   - A validar los datos de `POST /api/personas` y a devolver 400 cuando los datos no son válidos y 409 cuando el email ya existe, con un `@RestControllerAdvice`.
   - Que los datos de conexión a la base de datos van en variables de entorno y no escritos en el repositorio.
-  - Con Git: integrar varios Pull Request en `main` en orden, resolver conflictos en `README.md` y `decisiones.md` (con `--ours` y `--theirs`) y por qué la rama debe tener lo mismo que probé en mi computador.
-  - A decidir y documentar lo que no estaba definido: el email se guarda en minúsculas, la fecha de nacimiento es obligatoria y el 409 de datos duplicados lleva un mensaje genérico.
 - **No entendí todavía:** qué significa la X roja de la terminal cuando un comando no muestra nada, como `git grep` sin resultados. Ya lo entendí: no es un error, el comando termina con un código distinto de cero cuando no encuentra nada.
-- **IA:** Gemini me guió en los ajustes de la revisión, y me ayudó a redactar la documentación de las historias. Lo que verifiqué yo: que no quedaran marcas de conflicto con `git grep`, que no hubiera `.log` en el repositorio, que `decisiones.md` tuviera sus 18 secciones, que compilara y pasara el test del servicio, y que el `./gradlew build` completo pasara contra una base de prueba vacía en PostgreSQL. Las decisiones del email, la fecha y el mensaje del 409 las tomé yo.
+- **IA:** Gemeni me guió con losajuste de revisión. Lo que verifiqué yo: que no quedaran marcas de conflicto con `git grep`, que no hubiera `.log` en el repositorio, que `decisiones.md` tuviera sus 18 secciones, que compilara y pasara el test del servicio, y que el `./gradlew build` completo pasara contra una base de prueba vacía en PostgreSQL. Las decisiones del email, la fecha y el mensaje del 409 las tomé yo.
 - **Hecho:** HU-04 (registrar personas, PR #29).
 
 ## 📅 Semana 5 (26 octubre - 30 octubre)
@@ -61,6 +59,8 @@
 - **Aprendí:**
   - A buscar una persona con `Optional<Persona>` y `orElseThrow`, lanzando `PersonaNoEncontradaException` en vez de devolver `null` o llamar a `.get()` sin verificar.
   - Por qué `Optional` y no `null`: `null` no aparece en la firma del método, así que quien lo llama no sabe que debe comprobarlo y el compilador no avisa. `Optional<Persona>` lo dice en el tipo y obliga a manejar la ausencia.
+  - Con Git: integrar varios Pull Request en `main` en orden, resolver conflictos en `README.md` y `decisiones.md` (con `--ours` y `--theirs`) y por qué la rama debe tener lo mismo que probé en mi computador.
+  - A decidir y documentar lo que no estaba definido: el email se guarda en minúsculas, la fecha de nacimiento es obligatoria y el 409 de datos duplicados lleva un mensaje genérico.
 - **No entendí todavía:** cómo dejar el `@RestControllerAdvice` para que traduzca bien el 400 cuando el id tiene formato inválido, y cómo probarlo en los tests.
 - **Busqué por mi cuenta:** qué es `Optional` en Java y cómo se usa `orElseThrow`; qué excepción lanza Spring cuando el id no se puede convertir a número (`MethodArgumentTypeMismatchException`).
 - **IA:** Gemini me ayudó a estructurar una parte de la bitácora de la HU-06 hasta el momento solo ha sido eso. Lo que verifiqué yo: que el endpoint responda en los casos que ya implementé.
