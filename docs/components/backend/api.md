@@ -39,9 +39,9 @@ Registra una persona.
 
 | Campo | Tipo | Reglas |
 |-------|------|--------|
-| `nombre` | texto | Obligatorio, no puede estar vacío ni tener solo espacios |
-| `apellido` | texto | Obligatorio, no puede estar vacío ni tener solo espacios |
-| `email` | texto | Obligatorio, con formato válido y único en el sistema |
+| | `nombre` | texto | Obligatorio, no puede estar vacío ni tener solo espacios. Máximo 100 caracteres |
+| `apellido` | texto | Obligatorio, no puede estar vacío ni tener solo espacios. Máximo 100 caracteres |
+| `email` | texto | Obligatorio, con formato válido y único en el sistema. Máximo 150 caracteres |
 | `fechaNacimiento` | fecha `AAAA-MM-DD` | Obligatoria, no puede ser futura |
 
 Antes de guardar se quitan los espacios de los extremos. El email se guarda en minúsculas, así que `Ana@x.com` y `ana@x.com` son la misma persona.
@@ -77,9 +77,9 @@ Mensajes posibles:
 
 | Campo | Mensaje |
 |-------|---------|
-| `nombre` | El nombre es obligatorio |
-| `apellido` | El apellido es obligatorio |
-| `email` | El correo es obligatorio / El correo no es válido |
+| `nombre` | El nombre es obligatorio / El nombre no puede tener más de 100 caracteres|
+| `apellido` | El apellido es obligatorio / el apellido no puede tener más de 100 caracteres |
+| `email` | El correo es obligatorio / El correo no es válido / El correo no puede tener más de 150 caracteres |
 | `fechaNacimiento` | La fecha de nacimiento es obligatoria / La fecha de nacimiento no puede ser futura |
 
 **409 Conflict**: el email ya está registrado.
