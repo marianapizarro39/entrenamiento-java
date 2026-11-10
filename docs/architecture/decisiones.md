@@ -117,19 +117,19 @@ Aquí dejo las decisiones generales que he tomado en el proyecto de gestión de 
 
 ## 17. Tests del servicio
 
-**Decisión:** empecé con un test unitario del servicio para el camino feliz.
+**Decisión:** hice test unitarios del servicio: el camino feliz y los casos de error.
 
-**Por qué:** el servicio es donde está la lógica, y al inyectar por constructor puedo probarlo sin levantar Spring ni la base de datos. Más adelante agrego los casos de error.
+**Por qué:** el servicio es donde está la lógica, y al inyectar por constructor puedo probarlo sin levantar Spring ni la base de datos.
 
 ## 18. Archivo .env.example sin contraseña
 
 **Decisión:** el `.env.example` que se sube al repositorio lleva `tu_contraseña` y no una contraseña de prueba, aunque la que usaba era de un usuario que solo existe en mi computador. El `.env` con mis datos reales está en el `.gitignore`.
 
-**Por qué:** la DoD Nivel 2 pide que no haya credenciales ni secretos en el código versionado. Prefiero no dejar ninguna contraseña en el repositorio para no depender de que alguien juzgue si es real o no. Quien clone el proyecto crea su propio `.env` copiando el ejemplo y poniendo sus datos.
+**Por qué:** la DoD Nivel 2 pide que no haya credenciales ni secretos en el código versionado. Prefiero no dejar ninguna contraseña en el repositorio para no depender de que alguien juzgue si es real o no. Quien clone el proyecto crea su propio `.env` copiando el ejemplo y poniendo sus datos. **Lo que pasó:** el commit `0fcf998` sí subió una contraseña de prueba. Aunque la quité del archivo, sigue en el historial de Git y cualquiera que clone el repositorio puede verla con `git log -p`. Por eso cambié la contraseña de ese usuario en mi PostgreSQL. Borrar del archivo no borra del historial, así que lo que se hace en estos casos es rotar la contraseña y dejarlo registrado.
 
 ## ⏳ Decisiones pendientes
 
 Estas todavía no las he tomado porque no llegan hasta las próximas historias:
 
-- **Manejo de errores para personas que no existen:** cómo responder cuando se busca una persona que no está (HU-05 en adelante).
-- **Más tests:** casos de error del servicio y tests del controller.
+- **Manejo de errores para personas que no existen:** cómo responder cuando se busca una persona que no está (HU-06, buscar por id).
+- **Más tests:** tests del controller.
