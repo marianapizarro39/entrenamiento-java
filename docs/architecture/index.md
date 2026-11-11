@@ -18,7 +18,7 @@ flowchart TD
     service -.-> dto
 ```
 
-**Leyenda.**la flecha continua (->) significa que una capa llama o depende de otra. La flecha punteada (-.->) significa que la capa usa los dto para recibir o devolver datos. 
+**Leyenda.** la flecha continua (-->) significa que una capa llama o depende de otra. La flecha punteada (-.->) significa que la capa usa los DTO para recibir o devolver datos. 
 
 ## Más información
 
