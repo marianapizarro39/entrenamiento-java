@@ -18,7 +18,6 @@ Los comandos de esta sección son para Git Bash.
 1. **Variables de entorno.** Crear una base de datos en PostgreSQL. Copiar `GestionPersonasBackend/.env.example` a `GestionPersonasBackend/.env` y cargarlo antes de ejecutar:
 
 ```bash
-cd GestionPersonasBackend
 set -a; source .env; set +a
 ```
 
