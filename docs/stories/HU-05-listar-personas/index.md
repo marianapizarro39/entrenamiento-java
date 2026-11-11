@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | Estado | En desarrollo |
-| Pull request | Pendiente (se llena al abrir el PR) |
+| Pull request | #31 |
 | Rama | `feature/hu-05-listar-personas` |
 
 Esta carpeta documenta la historia de listar personas.
