@@ -5,3 +5,91 @@ GET {{baseUrl}}/api/health
 
 ### Welcome: saludo personalizado
 GET {{baseUrl}}/api/welcome/Ana
+
+
+### Crear persona: caso valido (201)
+POST {{baseUrl}}/api/personas
+Content-Type: application/json
+
+{
+  "nombre": "Ana",
+  "apellido": "Gómez",
+  "email": "ana.gomez@correo.com",
+  "fechaNacimiento": "1998-05-14"
+}
+
+### Crear persona: nombre en blanco (400)
+POST {{baseUrl}}/api/personas
+Content-Type: application/json
+
+{
+  "nombre": "",
+  "apellido": "Gómez",
+  "email": "otra@correo.com",
+  "fechaNacimiento": "1998-05-14"
+}
+
+### Crear persona: email invalido (400)
+POST {{baseUrl}}/api/personas
+Content-Type: application/json
+
+{
+  "nombre": "Ana",
+  "apellido": "Gómez",
+  "email": "esto-no-es-un-correo",
+  "fechaNacimiento": "1998-05-14"
+}
+
+### Crear persona: fecha futura (400)
+POST {{baseUrl}}/api/personas
+Content-Type: application/json
+
+{
+  "nombre": "Ana",
+  "apellido": "Gómez",
+  "email": "futura@correo.com",
+  "fechaNacimiento": "2099-01-01"
+}
+
+### Crear persona: email duplicado (409), enviar despues del caso valido
+POST {{baseUrl}}/api/personas
+Content-Type: application/json
+
+{
+  "nombre": "Ana",
+  "apellido": "Gómez",
+  "email": "ana.gomez@correo.com",
+  "fechaNacimiento": "1998-05-14"
+}
+
+### Crear persona: sin fecha de nacimiento (400)
+POST {{baseUrl}}/api/personas
+Content-Type: application/json
+
+{
+  "nombre": "Ana",
+  "apellido": "Gómez",
+  "email": "sinfecha@correo.com"
+}
+
+### Crear persona: mismo email con mayusculas (409), enviar despues del caso valido
+POST {{baseUrl}}/api/personas
+Content-Type: application/json
+
+{
+  "nombre": "Ana",
+  "apellido": "Gómez",
+  "email": "Ana.Gomez@Correo.com",
+  "fechaNacimiento": "1998-05-14"
+}
+
+### Nombre con 101 caracteres (400)
+POST {{baseUrl}}/api/personas
+Content-Type: application/json
+
+{
+  "nombre": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "apellido": "Gómez",
+  "email": "101caracteres@correo.com",
+  "fechaNacimiento": "1998-05-14"
+}

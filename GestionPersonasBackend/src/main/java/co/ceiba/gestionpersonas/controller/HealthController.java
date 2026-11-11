@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class HealthController {
 
-  @GetMapping(value = "/health", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<HealthResponse> health() {
-    return ResponseEntity.ok(new HealthResponse("OK", "API funcionando"));
-  }
-}  
+    @GetMapping(value = "/health", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<HealthResponse> health() {
+        return ResponseEntity.ok(new HealthResponse("OK", "API funcionando"));
+    }
+}

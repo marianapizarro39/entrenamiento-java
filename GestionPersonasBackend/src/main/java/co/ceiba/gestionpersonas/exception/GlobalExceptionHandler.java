@@ -37,12 +37,12 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(respuesta);
     }
 
-    // por si dos peticiones con el mismo email llegan casi al mismo tiempo
+    // cubre restricciones de la base, por ejemplo dos peticiones con el mismo email casi al mismo tiempo
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<ErrorResponse> manejarIntegridad(DataIntegrityViolationException ex) {
         ErrorResponse respuesta = new ErrorResponse(
                 HttpStatus.CONFLICT.value(),
-                "Ya existe una persona registrada con ese email",
+                "Ya existe un registro con esos datos",
                 List.of()
         );
         return ResponseEntity.status(HttpStatus.CONFLICT).body(respuesta);
