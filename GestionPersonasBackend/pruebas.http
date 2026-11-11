@@ -82,3 +82,14 @@ Content-Type: application/json
   "email": "Ana.Gomez@Correo.com",
   "fechaNacimiento": "1998-05-14"
 }
+
+### Nombre con 101 caracteres (400)
+POST {{baseUrl}}/api/personas
+Content-Type: application/json
+
+{
+  "nombre": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "apellido": "Gómez",
+  "email": "101caracteres@correo.com",
+  "fechaNacimiento": "1998-05-14"
+}
