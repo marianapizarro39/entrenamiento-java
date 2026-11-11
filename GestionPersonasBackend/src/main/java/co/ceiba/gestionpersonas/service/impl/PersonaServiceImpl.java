@@ -8,6 +8,7 @@ import co.ceiba.gestionpersonas.repository.PersonaRepository;
 import co.ceiba.gestionpersonas.service.PersonaService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Locale;
 
 @Service
@@ -37,12 +38,23 @@ public class PersonaServiceImpl implements PersonaService {
 
         Persona guardada = personaRepository.save(persona);
 
+        return aRESPUESTA(guardada);
+    }
+
+    @Override
+    public List <PersonaResponse> listar() {
+        return personaRepository.findAllByOrderByApellidoAsc().stream()
+                .map(this::aRESPUESTA)
+                .toList();
+    }
+
+    private PersonaResponse aRESPUESTA(Persona persona) {
         return new PersonaResponse(
-                guardada.getId(),
-                guardada.getNombre(),
-                guardada.getApellido(),
-                guardada.getEmail(),
-                guardada.getFechaNacimiento()
+                persona.getId(),
+                persona.getNombre(),
+                persona.getApellido(),
+                persona.getEmail(),
+                persona.getFechaNacimiento()
         );
     }
 }
