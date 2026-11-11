@@ -117,7 +117,7 @@ Aquí dejo las decisiones generales que he tomado en el proyecto de gestión de 
 
 ## 17. Tests del servicio
 
-**Decisión:** hice test unitarios del servicio: el camino feliz y los casos de error.
+**Decisión:** hice tests unitarios del servicio: el camino feliz y los casos de error.
 
 **Por qué:** el servicio es donde está la lógica, y al inyectar por constructor puedo probarlo sin levantar Spring ni la base de datos.
 
