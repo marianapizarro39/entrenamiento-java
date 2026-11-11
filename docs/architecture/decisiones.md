@@ -127,6 +127,12 @@ Aquí dejo las decisiones generales que he tomado en el proyecto de gestión de 
 
 **Por qué:** la DoD Nivel 2 pide que no haya credenciales ni secretos en el código versionado. Prefiero no dejar ninguna contraseña en el repositorio para no depender de que alguien juzgue si es real o no. Quien clone el proyecto crea su propio `.env` copiando el ejemplo y poniendo sus datos. **Lo que pasó:** el commit `0fcf998` sí subió una contraseña de prueba. Aunque la quité del archivo, sigue en el historial de Git y cualquiera que clone el repositorio puede verla con `git log -p`. Por eso cambié la contraseña de ese usuario en mi PostgreSQL. Borrar del archivo no borra del historial, así que lo que se hace en estos casos es rotar la contraseña y dejarlo registrado.
 
+## 19. Ordenar por apellido en la base de datos
+
+**Decisión:** el listado sale ordenado por apellido desde una consulta del repositorio (`findAllByOrderByApellidoAsc`), así que el orden lo hace la base de datos con un `ORDER BY` y no Java. Para comprobarlo activé `show-sql` y miré el SQL que genera Hibernate en la consola.
+
+**Por qué:** la base de datos ya sabe ordenar, entonces no veo para qué traer todo y ordenarlo yo con un `sort()`. Sin `show-sql` no podía estar segura de dónde se hacía el orden, porque el resultado se ve igual en los dos casos.
+
 ## ⏳ Decisiones pendientes
 
 Estas todavía no las he tomado porque no llegan hasta las próximas historias:
