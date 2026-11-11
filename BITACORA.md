@@ -42,18 +42,18 @@
   - A validar los datos de `POST /api/personas` y a devolver 400 cuando los datos no son válidos y 409 cuando el email ya existe, con un `@RestControllerAdvice`.
   - Que los datos de conexión a la base de datos van en variables de entorno y no escritos en el repositorio.
 - **No entendí todavía:** qué significa la X roja de la terminal cuando un comando no muestra nada, como `git grep` sin resultados. Ya lo entendí: no es un error, el comando termina con un código distinto de cero cuando no encuentra nada.
-- **IA:** Usé Gemini para que mis palabras quedaran más claras al redactar las historias de usuario. Las ideas y las decisiones las tomé yo; la IA me ayudó a mejorar mi redacción. 
-- **Hecho:** HU-04 (registrar personas, PR #29).
+- **IA:** Usé Gemini para que mis palabras quedaran más claras al redactar las historias de usuario. Le pedí que mejorara mi redacción, y después comprobé que el texto siguiera diciendo lo mismo que yo quería. Lo del código lo verifiqué yo: que Flyway creara la tabla con validate, que POST /api/personas devolviera 400 y 409 cuando tocaba, y que la conexión a la base usara variables de entorno.
+- **Hecho:** HU-04 (registrar personas, PR #29). El código y la migración y casí toda la documentación los hice yo.
 
 ## 📅 Semana 5 (26 octubre - 30 octubre)
 - **Aprendí:**
   - A listar personas con `GET /api/personas` devolviendo DTOs y no entidades, y a mapear de entidad a DTO con la API de Streams.
   - A ordenar en la base de datos y no en memoria: con `findAllByOrderByApellidoAsc()` el orden lo resuelve un `ORDER BY`, no un `sort()` en Java. Lo comprobé activando `show-sql` y viendo el SQL que genera Hibernate.
   - Que una lista vacía debe responder `200 OK` con `[]` y no un 404, porque que no haya registros no es un error.
-- **No entendí todavía:** hasta el momento todo está muy claro en esta historia.
-- **Busqué por mi cuenta:** cómo activar `show-sql` y `format_sql` en Spring Boot, y cómo Spring Data JPA arma consultas a partir del nombre del método.
-- **IA:** Gemini me ayudó a redactar una parte de la bitácora de la HU-05 y me ayudo a saber cual era el orden correcto para tomar las capturas de evidencia. Lo que verifiqué yo: el `ORDER BY` en la consola de Hibernate, que la lista vacía respondiera `200` con `[]` y que el test del servicio pasara.
-- **Hecho:** HU-05 (listar personas) con endpoint, DTO, ordenamiento en base de datos y tests unitarios del servicio.
+- **No entendí todavía:** hasta el momento voy entendiendo todo lo visto en esta historia.
+- **Busqué por mi cuenta:** cómo activar `show-sql` y `format_sql` en Spring Boot, cómo Spring Data JPA arma consultas a partir del nombre del método y cómo borrar los datos registrados en la base con PSQL para tomar la captura de la lista vacía.
+- **IA:** En esta HU-05 usé Gemini solo para dos cosas: me ayudó a redactar una parte de esta bitácora y a saber en qué orden tomar las capturas de evidencia. Todo lo demás lo hice yo: el código, la documentación y las pruebas. Revisé personalmente el ORDER BY en la consola de Hibernate, comprobé que la lista vacía respondiera 200 con [] y que el test de servicio pasara.
+- **Hecho:** HU-05 (listar personas) con endpoint, DTO, ordenamiento en base de datos y tests unitarios del servicio. También corregí el caso de límite de `prueba.http` a exactamente 101 caracteres.
   
 ## 📅 Semana 6 (2 noviembre - 6 noviembre)
 - **Aprendí:**
