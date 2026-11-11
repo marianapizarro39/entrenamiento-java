@@ -13,10 +13,12 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -74,5 +76,27 @@ class PersonaServiceTest {
         PersonaResponse respuesta = personaService.crear(request);
 
         assertEquals("mariana@correo.com", respuesta.email());
+    }
+
+    @Test
+    void listar_conDatos_retornaDtosEnElOrdenDelRepositorio() {
+        when(personaRepository.findAllByOrderByApellidoAsc()).thenReturn(List.of(
+                new Persona(2L, "Camila", "Ossa", "camila@correo.com", LocalDate.of(2000,7,15)),
+                new Persona(1L, "Santiago", "Cano", "cano@correo.com", LocalDate.of(2006, 8, 18))
+        ));
+
+        List<PersonaResponse> respuestas = personaService.listar();
+
+        assertEquals(2, respuestas.size());
+        assertEquals("Camila", respuestas.get(0).nombre());
+        assertEquals("Santiago", respuestas.get(1).nombre());
+        verify(personaRepository).findAllByOrderByApellidoAsc();
+    }
+
+    @Test 
+    void listar_sinDatos_retornaListaVacia() {
+        when(personaRepository.findAllByOrderByApellidoAsc()).thenReturn(List.of());
+
+        assertTrue(personaService.listar().isEmpty());
     }
 }
