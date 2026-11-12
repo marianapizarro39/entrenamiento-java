@@ -18,6 +18,7 @@ Los comandos de esta sección son para Git Bash.
 1. **Variables de entorno.** Crear una base de datos en PostgreSQL. Copiar `GestionPersonasBackend/.env.example` a `GestionPersonasBackend/.env` y cargarlo antes de ejecutar:
 
 ```bash
+cd GestionPersonasBackend
 set -a; source .env; set +a
 ```
 
@@ -38,7 +39,7 @@ La API queda en `http://localhost:8080`.
 | GET | `/api/health` | `{"status":"OK","message":"API funcionando"}` |
 | GET | `/api/welcome/{nombre}` | `{"message":"Hola, {nombre}. Te damos la bienvenida a la API de gestión de personas."}` |
 | POST | `/api/personas` | `201` con la persona creada y su `id`. `400` si los datos no son válidos y `409` si el email ya existe |
-| GET | `/api/personas` | `200` con la lista de personas ordena por apellido ascendente. Si no hay ninguna, `200` con `[]`|
+| GET | `/api/personas` | `200` con la lista de personas ordenada por apellido ascendente. Si no hay ninguna, `200` con `[]`|
 
 Ejemplo de petición para `POST /api/personas`:
 
