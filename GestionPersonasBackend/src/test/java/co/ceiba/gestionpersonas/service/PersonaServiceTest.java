@@ -82,13 +82,17 @@ class PersonaServiceTest {
     void listar_conDatos_retornaDtosEnElOrdenDelRepositorio() {
         when(personaRepository.findAllByOrderByApellidoAsc()).thenReturn(List.of(
                 new Persona(2L, "Camila", "Ossa", "camila@correo.com", LocalDate.of(2000, 7, 15)),
-                new Persona(1L, "Santiago", "Cano", "cano@correo.com", LocalDate.of(2006, 8, 18))
-        ));
+                new Persona(1L, "Santiago", "Cano", "cano@correo.com", LocalDate.of(2006, 8, 18))));
 
         List<PersonaResponse> respuestas = personaService.listar();
 
         assertEquals(2, respuestas.size());
-        assertEquals("Camila", respuestas.get(0).nombre());
+        PersonaResponse primero = respuestas.get(0);
+        assertEquals(2L, primero.id());
+        assertEquals("Camila", primero.nombre());
+        assertEquals("Ossa", primero.apellido());
+        assertEquals("camila@correo.com", primero.email());
+        assertEquals(LocalDate.of(2000, 7, 15), primero.fechaNacimiento());
         assertEquals("Santiago", respuestas.get(1).nombre());
         verify(personaRepository).findAllByOrderByApellidoAsc();
     }
