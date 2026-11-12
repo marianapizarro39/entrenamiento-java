@@ -38,17 +38,17 @@ public class PersonaServiceImpl implements PersonaService {
 
         Persona guardada = personaRepository.save(persona);
 
-        return aRESPUESTA(guardada);
+        return aRespuesta(guardada);
     }
 
     @Override
-    public List <PersonaResponse> listar() {
+    public List<PersonaResponse> listar() {
         return personaRepository.findAllByOrderByApellidoAsc().stream()
-                .map(this::aRESPUESTA)
+                .map(this::aRespuesta)
                 .toList();
     }
 
-    private PersonaResponse aRESPUESTA(Persona persona) {
+    private PersonaResponse aRespuesta(Persona persona) {
         return new PersonaResponse(
                 persona.getId(),
                 persona.getNombre(),
