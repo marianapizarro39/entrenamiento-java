@@ -133,6 +133,12 @@ Aquí dejo las decisiones generales que he tomado en el proyecto de gestión de 
 
 **Por qué:** la base de datos ya sabe ordenar, entonces no veo para qué traer todo y ordenarlo yo con un `sort()`. Sin `show-sql` no podía estar segura de dónde se hacía el orden, porque el resultado se ve igual en los dos casos.
 
+**Cómo activarlo:** `show-sql` ya no está en el `application.yml` porque es una herramienta para depurar y en un servidor real imprimiría cada consulta en los logs. Cuando quiera volver a ver el SQL, lo enciendo solo al arrancar:
+
+```
+./gradlew bootRun --args='--spring.jpa.show-sql=true'
+```
+
 ## ⏳ Decisiones pendientes
 
 Estas todavía no las he tomado porque no llegan hasta las próximas historias:
