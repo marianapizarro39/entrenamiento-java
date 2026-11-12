@@ -9,5 +9,5 @@ public interface PersonaService {
 
     PersonaResponse crear(PersonaRequest request);
 
-        List<PersonaResponse> listar();
+    List<PersonaResponse> listar();
 }

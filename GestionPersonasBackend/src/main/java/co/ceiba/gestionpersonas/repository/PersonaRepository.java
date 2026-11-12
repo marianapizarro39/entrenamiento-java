@@ -6,8 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface PersonaRepository extends JpaRepository<Persona, Long> {
-    
+
     boolean existsByEmail(String email);
 
-        List<Persona> findAllByOrderByApellidoAsc();
+    List<Persona> findAllByOrderByApellidoAsc();
 }

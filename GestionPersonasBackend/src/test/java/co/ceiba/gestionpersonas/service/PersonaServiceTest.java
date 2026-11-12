@@ -81,7 +81,7 @@ class PersonaServiceTest {
     @Test
     void listar_conDatos_retornaDtosEnElOrdenDelRepositorio() {
         when(personaRepository.findAllByOrderByApellidoAsc()).thenReturn(List.of(
-                new Persona(2L, "Camila", "Ossa", "camila@correo.com", LocalDate.of(2000,7,15)),
+                new Persona(2L, "Camila", "Ossa", "camila@correo.com", LocalDate.of(2000, 7, 15)),
                 new Persona(1L, "Santiago", "Cano", "cano@correo.com", LocalDate.of(2006, 8, 18))
         ));
 
@@ -93,7 +93,7 @@ class PersonaServiceTest {
         verify(personaRepository).findAllByOrderByApellidoAsc();
     }
 
-    @Test 
+    @Test
     void listar_sinDatos_retornaListaVacia() {
         when(personaRepository.findAllByOrderByApellidoAsc()).thenReturn(List.of());
 
