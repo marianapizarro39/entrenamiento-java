@@ -3,7 +3,7 @@
 Historia: [historia.md](historia.md) · Estado: [index.md](index.md)
 
 ## Estado
-Por hacer. Este refinamiento se escribe antes del código.
+Hecho. Este refinamiento se escribe antes del código.
 
 ## Qué necesitaba antes
 - La HU-04 (registrar personas) fusionada en `main`, porque necesito personas guardadas para probar el listado.
