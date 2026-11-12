@@ -25,4 +25,5 @@ Hecho. Este refinamiento se escribe antes del código.
 3 puntos.
 
 ## Decisiones que tomé
-Se completa después de la revisión del PR.
+- Orden con tildes (riesgo cerrado). Registré personas con apellidos Álvarez, Arias, Fernández, Osorio y Zapata, en desorden. GET /api/personas devolvió primero "Álvarez", antes de "Arías". Un apellido que empieza con letra con tilde no se va al final: el orden por apellido funciona bien con tildes en esta base de datos. No requiere cambios en esta historia.
+- Se completa después de la revisión del PR.
