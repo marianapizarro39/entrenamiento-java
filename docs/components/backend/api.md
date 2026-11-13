@@ -101,6 +101,7 @@ Mensajes posibles:
   "errores": []
 }
 ```
+
 ## GET /api/personas
 
 Lista todas las personas registradas, ordenadas por apellido.
@@ -126,7 +127,7 @@ Lista todas las personas registradas, ordenadas por apellido.
 ]
 ```
 
-si no hay personas registradas, la respuesta sigue siendo **200** con una lista vacía. No es un error.
+Si no hay personas registradas, la respuesta sigue siendo **200** con una lista vacía. No es un error.
 
 ```json
 []
