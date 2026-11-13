@@ -101,3 +101,33 @@ Mensajes posibles:
   "errores": []
 }
 ```
+## GET /api/personas
+
+Lista todas las personas registradas, ordenadas por apellido.
+
+**200**: la lista de personas. Cada elemento tiene los mismos campos que la respuesta de `POST /api/personas`.
+
+```json
+[
+  {
+    "id": 2,
+    "nombre": "Santiago",
+    "apellido": "Cano",
+    "email": "cano@correo.com",
+    "fechaNacimiento": "2006-08-18"
+  },
+  {
+    "id": 1,
+    "nombre": "Ana",
+    "apellido": "Gómez",
+    "email": "ana.gomez@correo.com",
+    "fechaNacimiento": "1998-05-14"
+  }
+]
+```
+
+si no hay personas registradas, la respuesta sigue siendo **200** con una lista vacía. No es un error.
+
+```json
+[]
+```

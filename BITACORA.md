@@ -42,19 +42,19 @@
   - A validar los datos de `POST /api/personas` y a devolver 400 cuando los datos no son válidos y 409 cuando el email ya existe, con un `@RestControllerAdvice`.
   - Que los datos de conexión a la base de datos van en variables de entorno y no escritos en el repositorio.
 - **No entendí todavía:** qué significa la X roja de la terminal cuando un comando no muestra nada, como `git grep` sin resultados. Ya lo entendí: no es un error, el comando termina con un código distinto de cero cuando no encuentra nada.
-- **IA:** Usé Gemini para que mis palabras quedaran más claras al redactar las historias de usuario. Las ideas y las decisiones las tomé yo; la IA me ayudó a mejorar mi redacción. 
-- **Hecho:** HU-04 (registrar personas, PR #29).
+- **IA:** Usé Gemini para que mis palabras quedaran más claras al redactar las historias de usuario. Le pedí que mejorara mi redacción, y después comprobé que el texto siguiera diciendo lo mismo que yo quería. Lo del código lo verifiqué yo: que Flyway creara la tabla con validate, que POST /api/personas devolviera 400 y 409 cuando tocaba, y que la conexión a la base usara variables de entorno.
+- **Hecho:** HU-04 (registrar personas, PR #29). El código y la migración y casi toda la documentación los hice yo.
 
 ## 📅 Semana 5 (26 octubre - 30 octubre)
 - **Aprendí:**
   - A listar personas con `GET /api/personas` devolviendo DTOs y no entidades, y a mapear de entidad a DTO con la API de Streams.
   - A ordenar en la base de datos y no en memoria: con `findAllByOrderByApellidoAsc()` el orden lo resuelve un `ORDER BY`, no un `sort()` en Java. Lo comprobé activando `show-sql` y viendo el SQL que genera Hibernate.
   - Que una lista vacía debe responder `200 OK` con `[]` y no un 404, porque que no haya registros no es un error.
-- **No entendí todavía:** hasta el momento todo está muy claro en esta historia.
-- **Busqué por mi cuenta:** cómo activar `show-sql` y `format_sql` en Spring Boot, y cómo Spring Data JPA arma consultas a partir del nombre del método.
-- **IA:** Gemini me ayudó a redactar una parte de la bitácora de la HU-05 y me ayudo a saber cual era el orden correcto para tomar las capturas de evidencia. Lo que verifiqué yo: el `ORDER BY` en la consola de Hibernate, que la lista vacía respondiera `200` con `[]` y que el test del servicio pasara.
-- **Hecho:** HU-05 (listar personas) con endpoint, DTO, ordenamiento en base de datos y tests unitarios del servicio.
-  
+- **No entendí todavía:** hasta el momento voy entendiendo todo lo visto en esta historia.
+- **Busqué por mi cuenta:** cómo activar show-sql y format_sql en Spring Boot y cómo Spring Data JPA arma consultas a partir del nombre del método.
+- **IA:** En esta HU-05 usé Gemini solo para redactar una parte de esta bitácora. Todo lo demás lo hice yo: el código y la documentación.
+- **Hecho:** HU-05 (listar personas) con endpoint, DTO y ordenamiento en base de datos.
+
 ## 📅 Semana 6 (2 noviembre - 6 noviembre)
 - **Aprendí:**
   - A buscar una persona con `Optional<Persona>` y `orElseThrow`, lanzando `PersonaNoEncontradaException` en vez de devolver `null` o llamar a `.get()` sin verificar.
@@ -65,3 +65,12 @@
 - **Busqué por mi cuenta:** qué es `Optional` en Java y cómo se usa `orElseThrow`; qué excepción lanza Spring cuando el id no se puede convertir a número (`MethodArgumentTypeMismatchException`).
 - **IA:** Gemini me guió con los ajustes de la revisión, me ayudó a redactar la documentación de las historias y a estructurar una parte de la bitácora de la HU-06. Lo que verifiqué yo: que no quedaran marcas de conflicto con `git grep`, que no hubiera `.log` en el repositorio, que `decisiones.md` tuviera sus 18 secciones, que compilara y pasara el test del servicio, que el `./gradlew build` completo pasara contra una base de prueba vacía en PostgreSQL y que el endpoint responda en los casos que ya implementé. Las decisiones del email, la fecha y el mensaje del 409 las tomé yo.
 - **Hecho:** el viernes 6 integré los PR #23, #25, #29, #28 y #27 en `main`. En la rama `fix/pendientes-semanas-2-a-4` corregí los ajustes de la revisión: la configuración de `application.yml`, los mensajes, el `nombre` obligatorio, el test del email repetido, las peticiones de `pruebas.http`, la migración V2 y la documentación de las tres historias. También avancé en la HU-06 (buscar persona por id) con la excepción propia y el servicio con `orElseThrow`. **Pendiente:** terminar el manejador global (404 y 400) y los tests de caso encontrado y no encontrado. La HU-06 va en su propia rama, creada desde `main` actualizado, con su propio PR.
+
+## 📅 Semana 7 (9 noviembre - 13 noviembre)
+- **Aprendí:**
+  - Que un test de mapeo tiene que comprobar todos los campos, y lo probé cambiando `aRespuesta` a propósito para que el test fallara.
+  - Para qué sirve el formateador y la configuración de VS Code.
+- **No entendí todavía:** aún no me queda del todo claro por qué `show-sql` no va en el `application.yml` y cómo activarlo cuando lo necesito.
+- **Busqué por mi cuenta:** cómo borrar los datos registrados en la base con `psql` para tomar la captura de la lista vacía.
+- **IA:** Gemini me ayudó a saber en qué orden tomar las capturas de evidencia. Los tests los escribí yo. Revisé personalmente el ORDER BY en la consola de Hibernate, comprobé que la lista vacía respondiera 200 con [] y que el test de servicio pasara.
+- **Hecho:** corregí el caso de límite de `pruebas.http` a exactamente 101 caracteres; escribí los tests unitarios del servicio, tomé la evidencia y abrí el PR #31 (HU-05).

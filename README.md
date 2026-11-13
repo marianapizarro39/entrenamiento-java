@@ -18,6 +18,7 @@ Los comandos de esta sección son para Git Bash.
 1. **Variables de entorno.** Crear una base de datos en PostgreSQL. Copiar `GestionPersonasBackend/.env.example` a `GestionPersonasBackend/.env` y cargarlo antes de ejecutar:
 
 ```bash
+cd GestionPersonasBackend
 set -a; source .env; set +a
 ```
 
@@ -26,7 +27,6 @@ El ejemplo apunta a la base de prueba `gestion_personas_test` con el usuario `us
 2. Ejecutar:
 
 ```bash
-cd GestionPersonasBackend
 ./gradlew bootRun
 ```
 
@@ -39,6 +39,7 @@ La API queda en `http://localhost:8080`.
 | GET | `/api/health` | `{"status":"OK","message":"API funcionando"}` |
 | GET | `/api/welcome/{nombre}` | `{"message":"Hola, {nombre}. Te damos la bienvenida a la API de gestión de personas."}` |
 | POST | `/api/personas` | `201` con la persona creada y su `id`. `400` si los datos no son válidos y `409` si el email ya existe |
+| GET | `/api/personas` | `200` con la lista de personas ordenada por apellido ascendente. Si no hay ninguna, `200` con `[]`|
 
 Ejemplo de petición para `POST /api/personas`:
 
@@ -50,6 +51,29 @@ Ejemplo de petición para `POST /api/personas`:
   "fechaNacimiento": "1998-05-14"
 }
 ```
+
+Ejemplo de respuesta para `GET /api/personas` (ordenada por apellido):
+
+```json
+[
+  {
+    "id": 7,
+    "nombre": "Sofía",
+    "apellido": "Arias",
+    "email": "sofia.arias@correo.com",
+    "fechaNacimiento": "1999-12-05"
+  },
+  {
+    "id": 5,
+    "nombre": "Carla",
+    "apellido": "Castro",
+    "email": "carla.castro@correo.com",
+    "fechaNacimiento": "1995-07-02"
+  }
+]
+```
+El orden por apellido se resuelve en la base de datos (`findAllByOrderByApellidoAsc`), no en memoria. Se puede ver activando `show-sql` de Hibernate.
+
 
 Para probarlos: abre `GestionPersonasBackend/pruebas.http` con la extensión REST Client y pulsa **Send Request** sobre cada petición. También se puede probar con Postman o curl.
 
@@ -82,4 +106,5 @@ Las dependencias van hacia abajo (controller → service → repository) y se in
 | HU-02 | Primer endpoint REST | #23 | ✅ | 1 |
 | HU-03 | Estructura base del proyecto | #25 | ✅ | 1 |
 | HU-04 | Registro de personas | #29 | ✅ | 2 |
+| HU-05 | Listar personas | #31 | 🔁 | 2 |
 

@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/personas")
 public class PersonaController {
@@ -22,5 +24,10 @@ public class PersonaController {
     public ResponseEntity<PersonaResponse> crear(@Valid @RequestBody PersonaRequest request) {
         PersonaResponse creada = personaService.crear(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(creada);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<PersonaResponse>> listar() {
+        return ResponseEntity.ok(personaService.listar());
     }
 }
