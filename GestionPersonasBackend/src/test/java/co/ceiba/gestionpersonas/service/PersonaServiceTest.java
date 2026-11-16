@@ -4,6 +4,7 @@ import co.ceiba.gestionpersonas.domain.Persona;
 import co.ceiba.gestionpersonas.dto.PersonaRequest;
 import co.ceiba.gestionpersonas.dto.PersonaResponse;
 import co.ceiba.gestionpersonas.exception.EmailYaExisteException;
+import co.ceiba.gestionpersonas.exception.PersonaNoEncontradaException;
 import co.ceiba.gestionpersonas.repository.PersonaRepository;
 import co.ceiba.gestionpersonas.service.impl.PersonaServiceImpl;
 import org.junit.jupiter.api.Test;
@@ -14,6 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -102,5 +104,28 @@ class PersonaServiceTest {
         when(personaRepository.findAllByOrderByApellidoAsc()).thenReturn(List.of());
 
         assertTrue(personaService.listar().isEmpty());
+    }
+
+    @Test
+    void buscarPorId_existe_retornaLaPersonaMapeada() {
+        when(personaRepository.findById(1L)).thenReturn(Optional.of(
+                new Persona(1L, "Camila", "Ossa", "camila@correo.com", LocalDate.of(2000, 7, 15))));
+
+        PersonaResponse respuesta = personaService.buscarPorId(1L);
+
+        assertEquals(1L, respuesta.id());
+        assertEquals("Camila", respuesta.nombre());
+        assertEquals("Ossa", respuesta.apellido());
+        assertEquals("camila@correo.com", respuesta.email());
+        assertEquals(LocalDate.of(2000, 7, 15), respuesta.fechaNacimiento());
+        verify(personaRepository).findById(1L);
+    }
+
+    @Test
+    void buscarPorId_noExiste_lanzaPersonaNoEncontrada() {
+        when(personaRepository.findById(99L)).thenReturn(Optional.empty());
+
+        assertThrows(PersonaNoEncontradaException.class, () -> personaService.buscarPorId(99L));
+        verify(personaRepository).findById(99L);
     }
 }
