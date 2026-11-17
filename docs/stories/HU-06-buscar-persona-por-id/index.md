@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | Estado | Terminado |
-| Pull request | Pendiente |
+| Pull request | #32 |
 | Rama | `feature/HU-06-buscar-persona-por-id` |
 
 Esta carpeta documenta la historia de buscar una persona por su id.

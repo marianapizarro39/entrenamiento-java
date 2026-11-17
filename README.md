@@ -108,5 +108,5 @@ Las dependencias van hacia abajo (controller → service → repository) y se in
 | HU-03 | Estructura base del proyecto | #25 | ✅ | 1 |
 | HU-04 | Registro de personas | #29 | ✅ | 2 |
 | HU-05 | Listar personas | #31 | ✅ | 2 |
-| HU-06 | Buscar persona por id | - | 2 |
+| HU-06 | Buscar persona por id | #32 | ✅ | 2 |
 
