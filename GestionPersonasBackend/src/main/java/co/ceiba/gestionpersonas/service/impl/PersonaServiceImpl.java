@@ -62,8 +62,7 @@ public class PersonaServiceImpl implements PersonaService {
     @Override
     public PersonaResponse buscarPorId(Long id) {
         return personaRepository.findById(id)
-            .map(this::aRespuesta)
-            .orElseThrow(() -> new PersonaNoEncontradaException(id));
+                .map(this::aRespuesta)
+                .orElseThrow(() -> new PersonaNoEncontradaException(id));
     }
 }
-

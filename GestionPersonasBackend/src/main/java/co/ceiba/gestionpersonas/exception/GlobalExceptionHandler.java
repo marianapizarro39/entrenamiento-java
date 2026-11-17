@@ -49,7 +49,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(respuesta);
     }
 
-    @ExceptionHandler (PersonaNoEncontradaException.class)
+    @ExceptionHandler(PersonaNoEncontradaException.class)
     public ResponseEntity<ErrorResponse> manejarPersonaNoEncontrada(PersonaNoEncontradaException ex) {
         ErrorResponse respuesta = new ErrorResponse(
                 HttpStatus.NOT_FOUND.value(),
