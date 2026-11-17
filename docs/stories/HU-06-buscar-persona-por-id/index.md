@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| Estado | Terminado |
+| Estado | Fusionada en `main` |
 | Pull request | #32 |
 | Rama | `feature/HU-06-buscar-persona-por-id` |
 
