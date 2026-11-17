@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| Estado | Fusionada en `main`|
+| Estado | ✅ Fusionada en `main`|
 | Pull request | #31 |
 | Rama | `feature/hu-05-listar-personas` |
 
