@@ -2,6 +2,7 @@
     "java.compile.nullAnalysis.mode": "automatic",
     "[java]": {
         "files.trimTrailingWhitespace": true,
-        "files.insertFinalNewline": true
+        "files.insertFinalNewline": true,
+        "files.trimFinalNewlines": true
     }
 }
