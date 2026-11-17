@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| Estado | En desarrollo |
+| Estado | Terminado |
 | Pull request | Pendiente |
 | Rama | `feature/HU-06-buscar-persona-por-id` |
 

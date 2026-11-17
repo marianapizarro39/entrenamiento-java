@@ -139,9 +139,14 @@ Aquí dejo las decisiones generales que he tomado en el proyecto de gestión de 
 ./gradlew bootRun --args='--spring.jpa.show-sql=true'
 ```
 
+## 20. Optional y no null al buscar por id
+
+**Decisión:** `findById` del repositorio devuelve `Optional<Persona>` y el servicio usa `orElseThrow` para lanzar `PersonaNoEncontradaException`. El `GlobalExceptionHandler` la convierte en un 404, y un id que no es un número (por ejemplo `/api/personas/abc`) lo convierte en un 400.
+
+**Por qué:** con `null` la firma del método no avisa que puede no haber resultado, y el compilador tampoco. Entonces quien lo llama puede olvidarse de comprobarlo y el error aparece más adelante como un `NullPointerException`. Con `Optional<Persona>` el tipo lo dice y obliga a decidir qué hacer si no hay valor. Tampoco llamo `.get()` sin verificar.
+
 ## ⏳ Decisiones pendientes
 
 Estas todavía no las he tomado porque no llegan hasta las próximas historias:
 
-- **Manejo de errores para personas que no existen:** cómo responder cuando se busca una persona que no está (HU-06, buscar por id).
 - **Más tests:** tests del controller.

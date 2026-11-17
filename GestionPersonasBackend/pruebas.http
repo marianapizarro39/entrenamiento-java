@@ -96,3 +96,12 @@ Content-Type: application/json
 
 ### Listar personas: ordenadas por apellido (200)
 GET {{baseUrl}}/api/personas
+
+### Buscar persona por id: existe (200)
+GET {{baseUrl}}/api/personas/1
+
+### Buscar persona por id: no existe (404)
+GET {{baseUrl}}/api/personas/99999
+
+### Buscar persona por id: id inválido (400)
+GET {{baseUrl}}/api/personas/abc

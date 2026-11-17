@@ -40,6 +40,7 @@ La API queda en `http://localhost:8080`.
 | GET | `/api/welcome/{nombre}` | `{"message":"Hola, {nombre}. Te damos la bienvenida a la API de gestión de personas."}` |
 | POST | `/api/personas` | `201` con la persona creada y su `id`. `400` si los datos no son válidos y `409` si el email ya existe |
 | GET | `/api/personas` | `200` con la lista de personas ordenada por apellido ascendente. Si no hay ninguna, `200` con `[]`|
+| GET | `/api/personas/{id}` | `200` con la persona encontrada. `404` si no existe una persona con ese id y `400` si el id no es un número |
 
 Ejemplo de petición para `POST /api/personas`:
 
@@ -106,5 +107,6 @@ Las dependencias van hacia abajo (controller → service → repository) y se in
 | HU-02 | Primer endpoint REST | #23 | ✅ | 1 |
 | HU-03 | Estructura base del proyecto | #25 | ✅ | 1 |
 | HU-04 | Registro de personas | #29 | ✅ | 2 |
-| HU-05 | Listar personas | #31 | 🔁 | 2 |
+| HU-05 | Listar personas | #31 | ✅ | 2 |
+| HU-06 | Buscar persona por id | - | 2 |
 
