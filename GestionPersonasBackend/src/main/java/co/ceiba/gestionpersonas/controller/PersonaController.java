@@ -30,4 +30,9 @@ public class PersonaController {
     public ResponseEntity<List<PersonaResponse>> listar() {
         return ResponseEntity.ok(personaService.listar());
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PersonaResponse> buscarPorId(@PathVariable Long id) {
+        return ResponseEntity.ok(personaService.buscarPorId(id));
+    }
 }

@@ -4,6 +4,7 @@ import co.ceiba.gestionpersonas.domain.Persona;
 import co.ceiba.gestionpersonas.dto.PersonaRequest;
 import co.ceiba.gestionpersonas.dto.PersonaResponse;
 import co.ceiba.gestionpersonas.exception.EmailYaExisteException;
+import co.ceiba.gestionpersonas.exception.PersonaNoEncontradaException;
 import co.ceiba.gestionpersonas.repository.PersonaRepository;
 import co.ceiba.gestionpersonas.service.PersonaService;
 import org.springframework.stereotype.Service;
@@ -56,5 +57,12 @@ public class PersonaServiceImpl implements PersonaService {
                 persona.getEmail(),
                 persona.getFechaNacimiento()
         );
+    }
+
+    @Override
+    public PersonaResponse buscarPorId(Long id) {
+        return personaRepository.findById(id)
+                .map(this::aRespuesta)
+                .orElseThrow(() -> new PersonaNoEncontradaException(id));
     }
 }

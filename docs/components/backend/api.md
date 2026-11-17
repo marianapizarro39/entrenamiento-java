@@ -101,6 +101,7 @@ Mensajes posibles:
   "errores": []
 }
 ```
+
 ## GET /api/personas
 
 Lista todas las personas registradas, ordenadas por apellido.
@@ -126,8 +127,44 @@ Lista todas las personas registradas, ordenadas por apellido.
 ]
 ```
 
-si no hay personas registradas, la respuesta sigue siendo **200** con una lista vacía. No es un error.
+Si no hay personas registradas, la respuesta sigue siendo **200** con una lista vacía. No es un error.
 
 ```json
 []
+```
+
+## GET /api/personas/{id}
+
+Busca una persona por su identificador.
+
+**Respuesta 200 OK**, cuando la persona existe:
+
+```json
+{
+  "id": 1,
+  "nombre": "Ana",
+  "apellido": "Arias",
+  "email": "ana@correo.com",
+  "fechaNacimiento": "2000-07-15"
+}
+```
+
+**Respuesta 404 Not Found**, cuando no existe una persona con ese id:
+
+```json
+{
+  "status": 404,
+  "mensaje": "No existe una persona con el id 99999",
+  "errores": []
+}
+```
+
+**Respuesta 400 Bad Request**, cuando el id no es un número, por ejemplo `/api/personas/abc`:
+
+```json
+{
+  "status": 400,
+  "mensaje": "El id debe ser un número válido",
+  "errores": []
+}
 ```
