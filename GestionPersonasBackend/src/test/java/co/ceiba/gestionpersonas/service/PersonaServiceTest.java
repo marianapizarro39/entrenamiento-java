@@ -125,7 +125,8 @@ class PersonaServiceTest {
     void buscarPorId_noExiste_lanzaPersonaNoEncontrada() {
         when(personaRepository.findById(99L)).thenReturn(Optional.empty());
 
-        assertThrows(PersonaNoEncontradaException.class, () -> personaService.buscarPorId(99L));
+        PersonaNoEncontradaException ex = assertThrows(PersonaNoEncontradaException.class, () -> personaService.buscarPorId(99L));
+        assertEquals("No existe una persona con el id 99", ex.getMessage());
         verify(personaRepository).findById(99L);
     }
 }
