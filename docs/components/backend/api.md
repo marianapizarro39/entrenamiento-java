@@ -168,3 +168,64 @@ Busca una persona por su identificador.
   "errores": []
 }
 ```
+
+## PUT /api/personas/{id}
+
+Actualiza los datos de una persona que ya existe.
+
+### Petición
+
+```json
+{
+  "nombre": "Laura Maria",
+  "apellido": "Ríos Pérez",
+  "email": "laura.maria@correo.com",
+  "fechaNacimiento": "1997-03-10"
+}
+```
+
+Los campos y las reglas son los mismos de `POST /api/personas`. El id sale siempre de la URL: si el body trae un `id`, se ignora. Antes de guardar se quitan los espacios de los extremos y el email se guarda en minúsculas. Si el email es el que ya tiene la misma persona, no es un conflicto, así que enviar dos veces la misma petición deja el mismo resultado.
+
+### Respuestas
+
+**Respuesta 200 OK**: la persona con los datos nuevos.
+
+```json
+{
+  "id": 13,
+  "nombre": "Laura Maria",
+  "apellido": "Ríos Pérez",
+  "email": "laura.maria@correo.com",
+  "fechaNacimiento": "1997-03-10"
+}
+```
+
+**Respuesta 400 Bad Request**: algún dato no es válido (mismo formato y mensajes que en `POST /api/personas`), o el id de la URL no es un número, por ejemplo `/api/personas/abc`.
+
+```json
+{
+  "status": 400,
+  "mensaje": "El id debe ser un número válido",
+  "errores": []
+}
+```
+
+**Respuesta 404 Not Found**: no existe una persona con ese id.
+
+```json
+{
+  "status": 404,
+  "mensaje": "No existe una persona con el id 99999",
+  "errores": []
+}
+```
+
+**Respuesta 409 Conflict**: el email ya lo tiene otra persona.
+
+```json
+{
+  "status": 409,
+  "mensaje": "Ya existe una persona registrada con el correo carlos.mora@correo.com",
+  "errores": []
+}
+```

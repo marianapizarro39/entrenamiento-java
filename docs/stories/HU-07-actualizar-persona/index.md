@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| Estado | 🚧 En desarrollo |
+| Estado | ✅ Fusionada en `main` |
 | Pull request | #33 |
 | Rama | `feature/HU-07-actualizar-persona` |
 
@@ -23,10 +23,11 @@ Esta carpeta documenta la historia de actualizar los datos de una persona que ya
 | Test del servicio | Comprueba la actualización exitosa, la persona inexistente y el email duplicado. |
 
 ## Evidencia
-Se agrega al terminar el código, con capturas de pantalla de:
+Las capturas están en la descripción del PR #33:
 - Actualización de una persona que existe (200 OK con los datos nuevos).
+- El mismo PUT dos veces seguidas, con el mismo resultado (idempotencia).
 - Petición con un id que no existe (404 con mensaje claro).
 - Petición con un email que ya tiene otra persona (409).
-- Petición con datos inválidos (400).
-- Dos PUT iguales seguidos, para mostrar que es idempotente.
+- Petición con un id distinto en el body, que se ignora (200 con el id del path).
+- Peticiones con datos inválidos: nombre en blanco, email inválido e id que no es un número (400).
 - Resultado de los tests y el build.
