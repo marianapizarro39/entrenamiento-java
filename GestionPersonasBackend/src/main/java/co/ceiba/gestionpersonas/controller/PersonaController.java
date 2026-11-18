@@ -9,6 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @RequestMapping("/api/personas")
@@ -34,5 +37,12 @@ public class PersonaController {
     @GetMapping("/{id}")
     public ResponseEntity<PersonaResponse> buscarPorId(@PathVariable Long id) {
         return ResponseEntity.ok(personaService.buscarPorId(id));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<PersonaResponse> actualizar(
+            @PathVariable Long id,
+            @Valid @RequestBody PersonaRequest request) {
+        return ResponseEntity.ok(personaService.actualizar(id, request));
     }
 }
