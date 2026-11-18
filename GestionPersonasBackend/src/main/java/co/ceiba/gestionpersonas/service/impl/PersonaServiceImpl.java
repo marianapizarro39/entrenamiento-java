@@ -85,6 +85,10 @@ public class PersonaServiceImpl implements PersonaService {
         persona.setEmail(email);
         persona.setFechaNacimiento(request.fechaNacimiento());
 
-        return aRespuesta(persona);
+        // Como el método es @Transactional, Hibernate guardaría estos cambios solo
+        // al cerrar la transacción (dirty checking). Llamo a save() para que quede explícito.
+        Persona actualizada = personaRepository.save(persona);
+
+        return aRespuesta(actualizada);
     }
 }
