@@ -12,4 +12,6 @@ public interface PersonaService {
     List<PersonaResponse> listar();
 
     PersonaResponse buscarPorId(Long id);
+
+    PersonaResponse actualizar(Long id, PersonaRequest request);
 }

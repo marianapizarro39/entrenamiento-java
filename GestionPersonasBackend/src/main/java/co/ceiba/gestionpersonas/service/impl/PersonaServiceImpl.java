@@ -8,6 +8,7 @@ import co.ceiba.gestionpersonas.exception.PersonaNoEncontradaException;
 import co.ceiba.gestionpersonas.repository.PersonaRepository;
 import co.ceiba.gestionpersonas.service.PersonaService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Locale;
@@ -64,5 +65,26 @@ public class PersonaServiceImpl implements PersonaService {
         return personaRepository.findById(id)
                 .map(this::aRespuesta)
                 .orElseThrow(() -> new PersonaNoEncontradaException(id));
+    }
+
+    @Override
+    @Transactional
+    public PersonaResponse actualizar(Long id, PersonaRequest request) {
+        Persona persona = personaRepository.findById(id)
+                .orElseThrow(() -> new PersonaNoEncontradaException(id));
+
+        String email = request.email().trim().toLowerCase(Locale.ROOT);
+
+        // Solo hay conflicto si el email lo tiene OTRA persona
+        if (personaRepository.existsByEmailAndIdNot(email, id)) {
+            throw new EmailYaExisteException(email);
+        }
+
+        persona.setNombre(request.nombre().trim());
+        persona.setApellido(request.apellido().trim());
+        persona.setEmail(email);
+        persona.setFechaNacimiento(request.fechaNacimiento());
+
+        return aRespuesta(persona);
     }
 }
