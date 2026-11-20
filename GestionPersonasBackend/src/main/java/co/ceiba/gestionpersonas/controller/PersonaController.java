@@ -35,4 +35,11 @@ public class PersonaController {
     public ResponseEntity<PersonaResponse> buscarPorId(@PathVariable Long id) {
         return ResponseEntity.ok(personaService.buscarPorId(id));
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<PersonaResponse> actualizar(
+            @PathVariable Long id,
+            @Valid @RequestBody PersonaRequest request) {
+        return ResponseEntity.ok(personaService.actualizar(id, request));
+    }
 }

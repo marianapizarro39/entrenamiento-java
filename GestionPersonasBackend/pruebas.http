@@ -105,3 +105,115 @@ GET {{baseUrl}}/api/personas/99999
 
 ### Buscar persona por id: id inválido (400)
 GET {{baseUrl}}/api/personas/abc
+
+### HU-07 preparacion: crear a Laura
+# @name crearLaura
+POST {{baseUrl}}/api/personas
+Content-Type: application/json
+
+{
+  "nombre": "Laura",
+  "apellido": "Ríos",
+  "email": "laura.rios@correo.com",
+  "fechaNacimiento": "1997-03-10"
+}
+
+### HU-07 preparacion: crear a Carlos
+POST {{baseUrl}}/api/personas
+Content-Type: application/json
+
+{
+  "nombre": "Carlos",
+  "apellido": "Mora",
+  "email": "carlos.mora@correo.com",
+  "fechaNacimiento": "1995-08-22"
+}
+
+### Actualizar persona: caso valido (200), enviar despues de crear a Laura
+PUT {{baseUrl}}/api/personas/{{crearLaura.response.body.id}}
+Content-Type: application/json
+
+{
+  "nombre": "Laura Maria",
+  "apellido": "Ríos Pérez",
+  "email": "laura.maria@correo.com",
+  "fechaNacimiento": "1997-03-10"
+}
+
+### Actualizar persona: mismo PUT otra vez (200), el resultado es identico (idempotencia)
+PUT {{baseUrl}}/api/personas/{{crearLaura.response.body.id}}
+Content-Type: application/json
+
+{
+  "nombre": "Laura Maria",
+  "apellido": "Ríos Pérez",
+  "email": "laura.maria@correo.com",
+  "fechaNacimiento": "1997-03-10"
+}
+
+### Actualizar persona: id que no existe (404)
+PUT {{baseUrl}}/api/personas/99999
+Content-Type: application/json
+
+{
+  "nombre": "Laura",
+  "apellido": "Ríos",
+  "email": "nadie@correo.com",
+  "fechaNacimiento": "1997-03-10"
+}
+
+### Actualizar persona: email de otra persona (409), enviar despues de crear a Carlos
+PUT {{baseUrl}}/api/personas/{{crearLaura.response.body.id}}
+Content-Type: application/json
+
+{
+  "nombre": "Laura Maria",
+  "apellido": "Ríos Pérez",
+  "email": "carlos.mora@correo.com",
+  "fechaNacimiento": "1997-03-10"
+}
+
+### Actualizar persona: el id del body se ignora (200, el id no cambia)
+PUT {{baseUrl}}/api/personas/{{crearLaura.response.body.id}}
+Content-Type: application/json
+
+{
+  "id": 555,
+  "nombre": "Laura Maria",
+  "apellido": "Ríos Pérez",
+  "email": "laura.maria@correo.com",
+  "fechaNacimiento": "1997-03-10"
+}
+
+### Actualizar persona: nombre en blanco (400)
+PUT {{baseUrl}}/api/personas/{{crearLaura.response.body.id}}
+Content-Type: application/json
+
+{
+  "nombre": "",
+  "apellido": "Ríos Pérez",
+  "email": "laura.maria@correo.com",
+  "fechaNacimiento": "1997-03-10"
+}
+
+### Actualizar persona: email invalido (400)
+PUT {{baseUrl}}/api/personas/{{crearLaura.response.body.id}}
+Content-Type: application/json
+
+{
+  "nombre": "Laura Maria",
+  "apellido": "Ríos Pérez",
+  "email": "esto-no-es-un-correo",
+  "fechaNacimiento": "1997-03-10"
+}
+
+### Actualizar persona: id inválido (400)
+PUT {{baseUrl}}/api/personas/abc
+Content-Type: application/json
+
+{
+  "nombre": "Laura Maria",
+  "apellido": "Ríos Pérez",
+  "email": "laura.maria@correo.com",
+  "fechaNacimiento": "1997-03-10"
+}

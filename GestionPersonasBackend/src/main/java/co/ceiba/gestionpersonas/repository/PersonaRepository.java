@@ -9,5 +9,7 @@ public interface PersonaRepository extends JpaRepository<Persona, Long> {
 
     boolean existsByEmail(String email);
 
+    boolean existsByEmailAndIdNot(String email, Long id);
+
     List<Persona> findAllByOrderByApellidoAsc();
 }

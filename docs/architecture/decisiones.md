@@ -145,6 +145,18 @@ Aquí dejo las decisiones generales que he tomado en el proyecto de gestión de 
 
 **Por qué:** con `null` la firma del método no avisa que puede no haber resultado, y el compilador tampoco. Entonces quien lo llama puede olvidarse de comprobarlo y el error aparece más adelante como un `NullPointerException`. Con `Optional<Persona>` el tipo lo dice y obliga a decidir qué hacer si no hay valor. Tampoco llamo `.get()` sin verificar.
 
+## 21. `save()` explícito al actualizar
+
+**Decisión:** en `actualizar` llamo a `personaRepository.save(persona)` aunque el método sea `@Transactional`.
+
+**Por qué:** dentro de una transacción, Hibernate guarda los cambios de una entidad gestionada al cerrarla, sin necesidad de `save()` (dirty checking). Funciona, pero el guardado pasa por detrás y si alguien le quita el `@Transactional` al método, deja de guardar sin que salga ningún error. Con `save()` se ve en el código qué se guarda y no depende de la anotación. Dejé un comentario en el método explicando esto.
+
+## 22. El email único al actualizar ignora a la misma persona
+
+**Decisión:** al actualizar uso `existsByEmailAndIdNot` y no `existsByEmail`, y normalizo el email igual que al crear (sin espacios en los extremos y en minúsculas).
+
+**Por qué:** con `existsByEmail`, una persona que reenvía su mismo email recibiría un 409, porque su propio registro ya lo tiene. Eso rompería la idempotencia del PUT (dos peticiones iguales tienen que dejar el mismo estado). Con `existsByEmailAndIdNot` solo hay conflicto cuando el email es de otra persona. La restricción `UNIQUE` de la base de datos sigue cubriendo el caso de dos peticiones al mismo tiempo (decisión 13).
+
 ## ⏳ Decisiones pendientes
 
 Estas todavía no las he tomado porque no llegan hasta las próximas historias:

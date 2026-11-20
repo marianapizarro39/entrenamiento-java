@@ -41,6 +41,7 @@ La API queda en `http://localhost:8080`.
 | POST | `/api/personas` | `201` con la persona creada y su `id`. `400` si los datos no son válidos y `409` si el email ya existe |
 | GET | `/api/personas` | `200` con la lista de personas ordenada por apellido ascendente. Si no hay ninguna, `200` con `[]`|
 | GET | `/api/personas/{id}` | `200` con la persona encontrada. `404` si no existe una persona con ese id y `400` si el id no es un número |
+| PUT | `/api/personas/{id}` | `200` con la persona actualizada. `404` si no existe una persona con ese id. `400` si los datos no son válidos o el id no es un número y `409` si el email ya lo tiene otra persona |
 
 Ejemplo de petición para `POST /api/personas`:
 
@@ -73,7 +74,19 @@ Ejemplo de respuesta para `GET /api/personas` (ordenada por apellido):
   }
 ]
 ```
+
 El orden por apellido se resuelve en la base de datos (`findAllByOrderByApellidoAsc`), no en memoria. Se puede ver activando `show-sql` de Hibernate.
+
+Ejemplo de petición para `PUT /api/personas/{id}` (mismos campos que el POST; el `id` sale de la URL y si viene en el body se ignora):
+
+```json
+{
+  "nombre": "Ana María",
+  "apellido": "Gómez",
+  "email": "ana.maria@correo.com",
+  "fechaNacimiento": "1998-05-14"
+}
+```
 
 
 Para probarlos: abre `GestionPersonasBackend/pruebas.http` con la extensión REST Client y pulsa **Send Request** sobre cada petición. También se puede probar con Postman o curl.
@@ -109,4 +122,5 @@ Las dependencias van hacia abajo (controller → service → repository) y se in
 | HU-04 | Registro de personas | #29 | ✅ | 2 |
 | HU-05 | Listar personas | #31 | ✅ | 2 |
 | HU-06 | Buscar persona por id | #32 | ✅ | 2 |
+| HU-07 | Actualizar persona | #33 | ✅ | 2 |
 
