@@ -7,6 +7,8 @@ import co.ceiba.gestionpersonas.exception.EmailYaExisteException;
 import co.ceiba.gestionpersonas.exception.PersonaNoEncontradaException;
 import co.ceiba.gestionpersonas.repository.PersonaRepository;
 import co.ceiba.gestionpersonas.service.PersonaService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +17,8 @@ import java.util.Locale;
 
 @Service
 public class PersonaServiceImpl implements PersonaService {
+
+    private static final Logger log = LoggerFactory.getLogger(PersonaServiceImpl.class);
 
     private final PersonaRepository personaRepository;
 
@@ -70,13 +74,19 @@ public class PersonaServiceImpl implements PersonaService {
     @Override
     @Transactional
     public PersonaResponse actualizar(Long id, PersonaRequest request) {
+        log.info("Actualizando la persona con id {}", id);
+
         Persona persona = personaRepository.findById(id)
-                .orElseThrow(() -> new PersonaNoEncontradaException(id));
+                .orElseThrow(() -> {
+                    log.warn("No se actualizó la persona con id {}: no existe", id);
+                    return new PersonaNoEncontradaException(id);
+                });
 
         String email = request.email().trim().toLowerCase(Locale.ROOT);
 
         // Solo hay conflicto si el email lo tiene OTRA persona
         if (personaRepository.existsByEmailAndIdNot(email, id)) {
+            log.warn("No se actualizó la persona con id {}: el email ya lo tiene otra persona", id);
             throw new EmailYaExisteException(email);
         }
 
