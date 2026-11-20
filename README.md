@@ -75,6 +75,8 @@ Ejemplo de respuesta para `GET /api/personas` (ordenada por apellido):
 ]
 ```
 
+El orden por apellido se resuelve en la base de datos (`findAllByOrderByApellidoAsc`), no en memoria. Se puede ver activando `show-sql` de Hibernate.
+
 Ejemplo de petición para `PUT /api/personas/{id}` (mismos campos que el POST; el `id` sale de la URL y si viene en el body se ignora):
 
 ```json
@@ -85,8 +87,6 @@ Ejemplo de petición para `PUT /api/personas/{id}` (mismos campos que el POST; e
   "fechaNacimiento": "1998-05-14"
 }
 ```
-
-El orden por apellido se resuelve en la base de datos (`findAllByOrderByApellidoAsc`), no en memoria. Se puede ver activando `show-sql` de Hibernate.
 
 
 Para probarlos: abre `GestionPersonasBackend/pruebas.http` con la extensión REST Client y pulsa **Send Request** sobre cada petición. También se puede probar con Postman o curl.

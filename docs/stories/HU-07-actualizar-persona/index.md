@@ -11,16 +11,16 @@ Esta carpeta documenta la historia de actualizar los datos de una persona que ya
 - [historia.md](historia.md): la historia y sus criterios de aceptación.
 - [refinamiento.md](refinamiento.md): lo que necesitaba antes, las dudas y las decisiones.
 
-## Qué piezas se van a tocar
-| Pieza | Para qué sirve |
+## Qué piezas se tocaron
+| Pieza | Qué se hizo |
 |---|---|
-| Repositorio | Busca la persona por id y revisa si el email ya lo tiene otra persona. |
-| Excepciones | Reutiliza `PersonaNoEncontradaException` (404) y la del email duplicado (409). |
-| DTO | Un `record` para el request de actualización, con las mismas validaciones del registro. |
-| Servicio | Busca la persona, valida el email, aplica los cambios y llama a `save()` de forma explícita. |
-| Controlador | Expone `PUT /api/personas/{id}` y toma siempre el id del path. |
-| `@ControllerAdvice` | Traduce las excepciones a 404, 409 y los datos inválidos a 400. |
-| Test del servicio | Comprueba la actualización exitosa, la persona inexistente y el email duplicado. |
+| Repositorio | Agregué `existsByEmailAndIdNot` para revisar si el email ya lo tiene otra persona. |
+| Excepciones | Reutilicé `PersonaNoEncontradaException` (404) y `EmailYaExisteException` (409). No hubo excepciones nuevas. |
+| DTO | Reutilicé `PersonaRequest`, que ya tiene las validaciones del registro. No se creó un DTO nuevo. |
+| Servicio | `actualizar` busca la persona, valida el email, aplica los cambios y llama a `save()` de forma explícita. También registra logs con SLF4J (info al empezar y warn en el 404 y el 409). |
+| Controlador | Agregué `PUT /api/personas/{id}`, que toma siempre el id del path. |
+| `GlobalExceptionHandler` | No cambió: ya traducía las excepciones a 404, 409 y los datos inválidos a 400. |
+| Test del servicio | Actualización exitosa, persona inexistente y email duplicado. |
 
 ## Evidencia
 Las capturas están en la descripción del PR #33:
