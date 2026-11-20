@@ -22,7 +22,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -139,8 +138,7 @@ class PersonaServiceTest {
 
         when(personaRepository.findById(1L)).thenReturn(Optional.of(existente));
         when(personaRepository.existsByEmailAndIdNot("camila.andrea@correo.com", 1L)).thenReturn(false);
-        // lenient: así el test sirve tanto si el servicio llama a save() como si no
-        lenient().when(personaRepository.save(any(Persona.class))).thenAnswer(invocacion -> invocacion.getArgument(0));
+        when(personaRepository.save(any(Persona.class))).thenAnswer(invocacion -> invocacion.getArgument(0));
 
         PersonaResponse respuesta = personaService.actualizar(1L, request);
 
@@ -149,6 +147,7 @@ class PersonaServiceTest {
         assertEquals("Ossa Ruiz", respuesta.apellido());
         assertEquals("camila.andrea@correo.com", respuesta.email());
         assertEquals(LocalDate.of(2000, 7, 16), respuesta.fechaNacimiento());
+        verify(personaRepository).save(existente);
     }
 
     @Test
