@@ -129,4 +129,48 @@ class PersonaServiceTest {
         assertEquals("No existe una persona con el id 99", ex.getMessage());
         verify(personaRepository).findById(99L);
     }
+
+    @Test
+    void actualizar_conDatosValidos_actualizaYRetornaLaPersona() {
+        Persona existente = new Persona(1L, "Camila", "Ossa", "camila@correo.com", LocalDate.of(2000, 7, 15));
+        PersonaRequest request = new PersonaRequest(
+                "Camila Andrea", "Ossa Ruiz", " Camila.Andrea@Correo.com ", LocalDate.of(2000, 7, 16));
+
+        when(personaRepository.findById(1L)).thenReturn(Optional.of(existente));
+        when(personaRepository.existsByEmailAndIdNot("camila.andrea@correo.com", 1L)).thenReturn(false);
+        when(personaRepository.save(any(Persona.class))).thenAnswer(invocacion -> invocacion.getArgument(0));
+
+        PersonaResponse respuesta = personaService.actualizar(1L, request);
+
+        assertEquals(1L, respuesta.id());
+        assertEquals("Camila Andrea", respuesta.nombre());
+        assertEquals("Ossa Ruiz", respuesta.apellido());
+        assertEquals("camila.andrea@correo.com", respuesta.email());
+        assertEquals(LocalDate.of(2000, 7, 16), respuesta.fechaNacimiento());
+        verify(personaRepository).save(existente);
+    }
+
+    @Test
+    void actualizar_noExiste_lanzaPersonaNoEncontradaYNoGuarda() {
+        PersonaRequest request = new PersonaRequest(
+                "Camila", "Ossa", "camila@correo.com", LocalDate.of(2000, 7, 15));
+
+        when(personaRepository.findById(99L)).thenReturn(Optional.empty());
+
+        assertThrows(PersonaNoEncontradaException.class, () -> personaService.actualizar(99L, request));
+        verify(personaRepository, never()).save(any(Persona.class));
+    }
+
+    @Test
+    void actualizar_conEmailDeOtraPersona_lanzaEmailYaExisteYNoGuarda() {
+        Persona existente = new Persona(1L, "Camila", "Ossa", "camila@correo.com", LocalDate.of(2000, 7, 15));
+        PersonaRequest request = new PersonaRequest(
+                "Camila", "Ossa", "santiago@correo.com", LocalDate.of(2000, 7, 15));
+
+        when(personaRepository.findById(1L)).thenReturn(Optional.of(existente));
+        when(personaRepository.existsByEmailAndIdNot("santiago@correo.com", 1L)).thenReturn(true);
+
+        assertThrows(EmailYaExisteException.class, () -> personaService.actualizar(1L, request));
+        verify(personaRepository, never()).save(any(Persona.class));
+    }
 }
