@@ -229,3 +229,29 @@ Los campos y las reglas son los mismos de `POST /api/personas`. El id sale siemp
   "errores": []
 }
 ```
+
+## DELETE /api/personas/{id}
+
+Elimina una persona. La eliminación es definitiva: la persona se borra de la base de datos.
+
+**Respuesta 204 No Content**: la persona existía y se eliminó. No trae body.
+
+**Respuesta 404 Not Found**: no existe una persona con ese id. Esto también pasa si se repite el DELETE sobre una persona que ya se eliminó.
+
+```json
+{
+  "status": 404,
+  "mensaje": "No existe una persona con el id 99999",
+  "errores": []
+}
+```
+
+**Respuesta 400 Bad Request**: el id no es un número, por ejemplo `/api/personas/abc`.
+
+```json
+{
+  "status": 400,
+  "mensaje": "El id debe ser un número válido",
+  "errores": []
+}
+```

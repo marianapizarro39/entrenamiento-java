@@ -2,11 +2,9 @@
 
 | | |
 |---|---|
-| **Puntos** | 2 |
-| **Rol** | Administrador del sistema |
-| **Rama** | feature/HU-08-eliminar-persona |
-| **PR** | #__ |
-| **Estado** | En desarrollo |
+| Estado | ✅ Fusionada en `main` |
+| Pull request | #34 |
+| Rama | `feature/HU-08-eliminar-persona |
 
 ## Documentos
 
