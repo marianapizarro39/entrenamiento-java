@@ -14,4 +14,6 @@ public interface PersonaService {
     PersonaResponse buscarPorId(Long id);
 
     PersonaResponse actualizar(Long id, PersonaRequest request);
+
+    void eliminar(Long id);
 }

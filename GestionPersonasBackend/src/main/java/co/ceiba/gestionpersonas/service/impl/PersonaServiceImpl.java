@@ -101,4 +101,20 @@ public class PersonaServiceImpl implements PersonaService {
 
         return aRespuesta(actualizada);
     }
+
+    @Override
+    @Transactional
+    public void eliminar(Long id) {
+        log.info("Eliminando la persona con id {}", id);
+
+        Persona persona = personaRepository.findById(id)
+                .orElseThrow(() -> {
+                    log.warn("No se eliminó la persona con id {}: no existe", id);
+                    return new PersonaNoEncontradaException(id);
+                });
+
+        personaRepository.delete(persona);
+
+        log.info("Persona eliminada con id {}", id);
+    }
 }
