@@ -173,4 +173,22 @@ class PersonaServiceTest {
         assertThrows(EmailYaExisteException.class, () -> personaService.actualizar(1L, request));
         verify(personaRepository, never()).save(any(Persona.class));
     }
+
+    @Test
+    void eliminar_existe_eliminaLaPersona() {
+        Persona existente = new Persona(1L, "Camila", "Ossa", "camila@correo.com", LocalDate.of(2000, 7, 15));
+        when(personaRepository.findById(1L)).thenReturn(Optional.of(existente));
+
+            personaService.eliminar(1L);
+
+        verify(personaRepository).delete(existente);
+    }
+
+    @Test
+    void eliminar_noExiste_lanzaPersonaNoEncontradaYNoElimina() {
+        when(personaRepository.findById(99L)).thenReturn(Optional.empty());
+
+        assertThrows(PersonaNoEncontradaException.class, () -> personaService.eliminar(99L));
+        verify(personaRepository, never()).delete(any(Persona.class));
+    }
 }
