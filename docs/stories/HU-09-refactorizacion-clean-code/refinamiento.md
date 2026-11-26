@@ -8,11 +8,15 @@ Revisar mi propio código de `PersonaServiceImpl` y `PersonaController`, identif
 
 ## Code smells y refactorings
 
-| # | Code smell | Dónde está | Refactoring |
+| # | Code smell (Refactoring Guru) | Dónde está | Refactoring |
 |---|---|---|---|
-| 1 | Duplicate Code | La normalización del email se repite en `crear` y en `actualizar` | Extract Method (`normalizarEmail`) |
-| 2 | Dead Code | Imports sin usar y `import *` en `PersonaController` | Eliminar imports sin usar y dejar imports explícitos |
-| 3 | (CONFIRMAR) Magic String | Mensajes de log y de error repetidos en el service | Replace Magic Number with Symbolic Constant |
+| 1 | Duplicate Code | `request.email().trim().toLowerCase(Locale.ROOT)` repetido en `crear` y `actualizar` | Extract Method (`normalizarEmail`) |
+| 2 | Duplicate Code | La búsqueda con `findById` + `orElseThrow` + log `warn` está repetida en `actualizar` y `eliminar` | Extract Method (`buscarPersonaOLanzarError`) |
+| 3 | Comments | El comentario "Solo hay conflicto si el email lo tiene OTRA persona" explica qué hace el `if` | Extract Method (`emailLoTieneOtraPersona`), el nombre del método reemplaza el comentario |
+
+## Limpieza adicional
+
+- `PersonaController` usa `import org.springframework.web.bind.annotation.*`. Lo cambio por imports explícitos (`@RestController`, `@RequestMapping`, `@PostMapping`, `@GetMapping`, `@PutMapping`, `@DeleteMapping`, `@PathVariable`, `@RequestBody`).
 
 ## Decisiones
 
