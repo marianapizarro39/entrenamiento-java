@@ -169,4 +169,4 @@ Aquí dejo las decisiones generales que he tomado en el proyecto de gestión de 
 
 Estas todavía no las he tomado porque no llegan hasta las próximas historias:
 
-- **Más tests:** tests del controller.
+- Más tests: tests del controller (@WebMvcTest y MockMvc) en la HU-12: casos de la HU-06, la HU-07 y el 204/404 del DELETE.
