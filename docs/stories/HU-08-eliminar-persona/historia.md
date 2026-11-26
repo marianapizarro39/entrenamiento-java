@@ -11,12 +11,12 @@ PARA mantener el registro limpio de datos obsoletos
 
 ## Criterios de aceptación
 
-- [ ] DELETE /api/personas/{id}
-- [ ] Si la persona existe, la elimina y retorna 204 No Content
-- [ ] Si no existe, retorna 404 Not Found
-- [ ] La eliminación es física (hard delete); se revisará en la HU-17
-- [ ] Queda registro en el log de la eliminación, con el id afectado
-- [ ] Tests: eliminación exitosa y persona inexistente
+- [x] DELETE /api/personas/{id}
+- [x] Si la persona existe, la elimina y retorna 204 No Content
+- [x] Si no existe, retorna 404 Not Found
+- [x] La eliminación es física (hard delete); se revisará en la HU-17
+- [x] Queda registro en el log de la eliminación, con el id afectado
+- [x] Tests: eliminación exitosa y persona inexistente
 
 ## Nota
 
