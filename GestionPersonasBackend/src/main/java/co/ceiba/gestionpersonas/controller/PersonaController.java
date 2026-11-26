@@ -42,4 +42,10 @@ public class PersonaController {
             @Valid @RequestBody PersonaRequest request) {
         return ResponseEntity.ok(personaService.actualizar(id, request));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminar(@PathVariable Long id) {
+            personaService.eliminar(id);
+        return ResponseEntity.noContent().build();
+    }
 }

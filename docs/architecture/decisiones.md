@@ -157,8 +157,16 @@ Aquí dejo las decisiones generales que he tomado en el proyecto de gestión de 
 
 **Por qué:** con `existsByEmail`, una persona que reenvía su mismo email recibiría un 409, porque su propio registro ya lo tiene. Eso rompería la idempotencia del PUT (dos peticiones iguales tienen que dejar el mismo estado). Con `existsByEmailAndIdNot` solo hay conflicto cuando el email es de otra persona. La restricción `UNIQUE` de la base de datos sigue cubriendo el caso de dos peticiones al mismo tiempo (decisión 13).
 
+## 23. Eliminación física (hard delete) y verificar que exista
+
+**Decisión:** `eliminar` borra la persona de la base de datos con `delete` y no tiene marca de "eliminada". Antes de borrar busco la persona con `findById` y, si no existe, lanzo `PersonaNoEncontradaException` (404).
+
+**Por qué:** la HU-08 pide borrado físico. Es una decisión provisional: la HU-17 la cambia por un requisito nuevo del negocio. Busqué primero la persona porque `deleteById` en las versiones nuevas de Spring Data no avisa si el id no existe, y así no podría devolver el 404. Es el mismo patrón de buscar y actualizar.
+
+**Log:** al eliminar dejo un `INFO` solo con el id. No guardo el nombre ni el correo para no dejar datos personales en los logs.
+
 ## ⏳ Decisiones pendientes
 
 Estas todavía no las he tomado porque no llegan hasta las próximas historias:
 
-- **Más tests:** tests del controller.
+- Más tests: tests del controller (@WebMvcTest y MockMvc) en la HU-12: casos de la HU-06, la HU-07 y el 204/404 del DELETE.

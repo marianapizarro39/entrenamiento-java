@@ -123,4 +123,5 @@ Las dependencias van hacia abajo (controller → service → repository) y se in
 | HU-05 | Listar personas | #31 | ✅ | 2 |
 | HU-06 | Buscar persona por id | #32 | ✅ | 2 |
 | HU-07 | Actualizar persona | #33 | ✅ | 2 |
+| HU-08 | Eliminar persona | #34 | ✅ | 2 |
 

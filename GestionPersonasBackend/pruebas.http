@@ -130,7 +130,7 @@ Content-Type: application/json
 }
 
 ### Actualizar persona: caso valido (200), enviar despues de crear a Laura
-PUT {{baseUrl}}/api/personas/{{crearLaura.response.body.id}}
+PUT {{baseUrl}}/api/personas/{{crearLaura.response.body.$.id}}
 Content-Type: application/json
 
 {
@@ -141,7 +141,7 @@ Content-Type: application/json
 }
 
 ### Actualizar persona: mismo PUT otra vez (200), el resultado es identico (idempotencia)
-PUT {{baseUrl}}/api/personas/{{crearLaura.response.body.id}}
+PUT {{baseUrl}}/api/personas/{{crearLaura.response.body.$.id}}
 Content-Type: application/json
 
 {
@@ -163,7 +163,7 @@ Content-Type: application/json
 }
 
 ### Actualizar persona: email de otra persona (409), enviar despues de crear a Carlos
-PUT {{baseUrl}}/api/personas/{{crearLaura.response.body.id}}
+PUT {{baseUrl}}/api/personas/{{crearLaura.response.body.$.id}}
 Content-Type: application/json
 
 {
@@ -174,7 +174,7 @@ Content-Type: application/json
 }
 
 ### Actualizar persona: el id del body se ignora (200, el id no cambia)
-PUT {{baseUrl}}/api/personas/{{crearLaura.response.body.id}}
+PUT {{baseUrl}}/api/personas/{{crearLaura.response.body.$.id}}
 Content-Type: application/json
 
 {
@@ -186,7 +186,7 @@ Content-Type: application/json
 }
 
 ### Actualizar persona: nombre en blanco (400)
-PUT {{baseUrl}}/api/personas/{{crearLaura.response.body.id}}
+PUT {{baseUrl}}/api/personas/{{crearLaura.response.body.$.id}}
 Content-Type: application/json
 
 {
@@ -197,7 +197,7 @@ Content-Type: application/json
 }
 
 ### Actualizar persona: email invalido (400)
-PUT {{baseUrl}}/api/personas/{{crearLaura.response.body.id}}
+PUT {{baseUrl}}/api/personas/{{crearLaura.response.body.$.id}}
 Content-Type: application/json
 
 {
@@ -217,3 +217,30 @@ Content-Type: application/json
   "email": "laura.maria@correo.com",
   "fechaNacimiento": "1997-03-10"
 }
+
+### HU-08 preparacion: crear una persona para eliminar
+# @name crearParaEliminar
+POST {{baseUrl}}/api/personas
+Content-Type: application/json
+
+{
+  "nombre": "Elena",
+  "apellido": "Vargas",
+  "email": "elena.vargas@correo.com",
+  "fechaNacimiento": "1999-02-20"
+}
+
+### Eliminar persona: caso valido (204), enviar despues de crear a Elena
+DELETE {{baseUrl}}/api/personas/{{crearParaEliminar.response.body.$.id}}
+
+### Eliminar persona: confirmar que ya no existe (404), enviar despues del DELETE
+GET {{baseUrl}}/api/personas/{{crearParaEliminar.response.body.$.id}}
+
+### Eliminar persona: el mismo id otra vez (404), ya no existe
+DELETE {{baseUrl}}/api/personas/{{crearParaEliminar.response.body.$.id}}
+
+### Eliminar persona: id que no existe (404)
+DELETE {{baseUrl}}/api/personas/99999
+
+### Eliminar persona: id inválido (400)
+DELETE {{baseUrl}}/api/personas/abc

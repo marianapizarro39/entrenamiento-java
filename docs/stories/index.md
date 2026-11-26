@@ -9,3 +9,4 @@
 | [HU-05: Listar personas](HU-05-listar-personas/index.md) | #31 | ✅ |
 | [HU-06: Buscar persona por id](HU-06-buscar-persona-por-id/index.md) | #32 | ✅ |
 | [HU-07: Actualizar persona](HU-07-actualizar-persona/index.md) | #33 | ✅ |
+| [HU-08: Eliminar persona](HU-08-eliminar-persona/index.md) | #34 | ✅ |

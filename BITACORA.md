@@ -91,4 +91,17 @@
   - **Lunes 16:** en la HU-06 agregué `GET /api/personas/{id}` con el manejador del 404 y del 400, en commits pequeños. Escribí los tests del caso encontrado y no encontrado, tomé las capturas y documenté el endpoint en `api.md`, el README, `decisiones.md` (decisión 20) y `pruebas.http`. Abrí el PR #32.
   - **Martes 17:** apliqué los ajustes de la revisión del PR #32 y se fusionó.
   - **Miércoles 18:** en la HU-07 agregué `PUT /api/personas/{id}` con `existsByEmailAndIdNot` en el repositorio, el método `actualizar` en el servicio y el endpoint en el controller. Escribí los tests de actualización exitosa, persona inexistente y email de otra persona, tomé las capturas, documenté el endpoint en `api.md`, `decisiones.md` (decisiones 21 y 22) y `pruebas.http`, y abrí el PR #33.
-  - **Jueves 19 y viernes 20:** apliqué las correcciones de la revisión del PR #33: agregué logs al servicio con SLF4J, quité imports repetidos, reforcé el test de actualizar con `verify(save)` y actualicé la documentación y la descripción del PR.
+  - **Jueves 19 y viernes 20:** apliqué las correcciones de la revisión del PR #33: agregué logs al servicio con SLF4J, quité imports repetidos, reforcé el test de actualizar con `verify(save)` y actualicé la documentación y la descripción del PR. Empecé con la HU-08 en mi equipo, sin subirla todavía: escribí la historia, el refinamiento y el index.md, y agregué el enlace en el índice general del proyecto.
+  
+## 📅 Semana 9 (23 noviembre - 27 noviembre)
+- *Aprendí:*
+  - Que en REST Client la variable {{crearParaEliminar.response.body.$.id}} solo se llena cuando envío el POST en la sesión actual de VS Code. Si no lo envío primero, sale un aviso azul de información (no es un error). Si cierro o recargo VS Code, hay que volver a enviarlo.
+  - Que si el POST de Elena responde 409 es porque PostgreSQL conserva los datos entre ejecuciones, y como el 409 no trae id, la variable queda vacía. Hay que cambiar el email.
+  - Que el error "connection refused" del Send Request significa que la aplicación no estaba corriendo en el puerto 8080.
+  - Que los avisos de nueva versión de Spring Boot en el archivo de build son informativos, y no conviene actualizar a mitad de una HU.
+- *No entendí todavía:* La duda que tenía ya fue resuelta en su momento por mi mentor pero era porque salian lineas azules debajo de las variables en pruebas.http.
+- *Busqué por mi cuenta:* Porque en pruebas.http salian las lineas onduladas azules debajo de la variable.
+- *IA:* No utilicé la IA en la HU-08. Lo que verifiqué yo: respuestas 201, 204, 404 y 400 en pruebas.http, que los tests pasen y que el código no presente errores.
+- *Hecho:*
+  - **Lunes 23 y martes 24:** Implementé DELETE /api/personas/{id} (controller, servicio y PersonaServiceImpl) con hard delete provisional, 204 si existe y 404 si no, y agregué las peticiones de eliminar en pruebas.http (204, 404, 404 al repetir, 404 de id inexistente y 400 de id inválido). Documenté el endpoint en api.md y decisiones.md (decisión 23). También terminé los ajustes del PR #33 de la HU-07 y el martes se fusionó.
+  - **Miércoles 25:** Subí los cambios en commits separados, corrí los tests y tomé las capturas iniciales de la HU-08.
