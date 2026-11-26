@@ -1,36 +1,34 @@
-# HU-08: Eliminar Persona
+# HU-08: Eliminar persona
 
 | | |
 |---|---|
 | Estado | ✅ Fusionada en `main` |
 | Pull request | #34 |
-| Rama | `feature/HU-08-eliminar-persona |
+| Rama | `feature/HU-08-eliminar-persona` |
 
-## Documentos
+Esta carpeta documenta la historia de eliminar una persona. El borrado es físico y provisional: en la HU-17 se cambia a borrado lógico.
 
-- [Historia de usuario](historia.md)
-- [Refinamiento](refinamiento.md)
+- [historia.md](historia.md): la historia y sus criterios de aceptación.
+- [refinamiento.md](refinamiento.md): lo que necesitaba antes, las dudas y las decisiones.
 
-## Resumen
+## Qué piezas se tocaron
 
-Endpoint DELETE /api/personas/{id} que elimina físicamente una persona (204 si existe, 404 si no) y deja en el log el id eliminado. El hard delete es provisional y se revierte en la HU-17.
-
-## Pruebas
-
-- Unitarias: eliminación exitosa y persona inexistente (PersonaServiceTest)
-- Manuales: Insomnia / pruebas.http
+| Pieza | Qué se hizo |
+|---|---|
+| Repositorio | No cambió: `findById` y `delete` ya vienen en `JpaRepository`. |
+| Excepciones | Reutilicé `PersonaNoEncontradaException` (404). No hubo excepciones nuevas. |
+| DTO | No se necesitó: el endpoint no recibe body ni devuelve datos. |
+| Servicio | `eliminar` busca la persona con `findById` y la borra con `delete`, dentro de un `@Transactional`. Registra logs con SLF4J (info con el id eliminado y warn en el 404). |
+| Controlador | Agregué `DELETE /api/personas/{id}`, que responde 204 sin contenido con `ResponseEntity.noContent()`. |
+| `GlobalExceptionHandler` | No cambió: ya traducía la excepción a un 404 con el mismo formato de las otras historias. |
+| Migraciones | No hubo migración de Flyway porque el esquema no cambió. |
+| Test del servicio | Eliminación exitosa y persona inexistente. |
 
 ## Evidencia
 
-- [ ] Captura de los tests pasando
-- [ ] Captura del 204 en Insomnia
-- [ ] Captura del 404 en Insomnia
-- [ ] Captura del log con el id eliminado
-
-## Definition of Done
-
-- [ ] Criterios de aceptación cumplidos
-- [ ] Tests pasando
-- [ ] Documentación actualizada (api.md, decisiones.md, pruebas.http, índice general, bitácora)
-- [ ] DoD marcada sobre la rama subida y verificada clonándola limpia
-- [ ] DoD incluida en la descripción del PR
+Las capturas están en la descripción del PR #34:
+- Creación de Elena (201), la persona que usé para las pruebas.
+- Eliminación de una persona que existe (204 sin contenido).
+- Petición con un id que no existe (404 con el mismo formato de error).
+- Log de la terminal de la aplicación con `Persona eliminada con id N` y el `warn` del 404.
+- Resultado de los tests y el build (13 tests: 12 del servicio y 1 de contexto).
